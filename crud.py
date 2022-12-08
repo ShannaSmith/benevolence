@@ -2,9 +2,9 @@
 from model import db, User, Recipient, Note, Like, Event, Prompt, connect_to_db
 
 #Functions  start here:
-def create_user(email, password):
+def create_user(fname, lname, email, password):
     """Create and return a new user."""
-    user= User(email=email, password=password)
+    user= User(fname=fname, lname=lname, email=email, password=password)
     return user
 
 def get_recipients():
@@ -19,8 +19,17 @@ def get_user_by_email(email):
     """return user using their email address"""
     return User.query.filter(User.email == email).first()
 
-def create_recipient(r_name, ranking):
+def create_recipient(user, r_name):
     """create new recipient """
-    recipient= Recipient(r_name=r_name, ranking=ranking)
+    recipient= Recipient(user=user, r_name=r_name)
     return recipient
 
+def create_like(prompt, recipient, like_name):
+    """create a prompt"""
+    like=Like(prompt=prompt, recipient=recipient, like_name=like_name)
+    return like
+
+
+if __name__=='__main__':
+    from server import app
+    connect_to_db(app)

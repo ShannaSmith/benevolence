@@ -8,8 +8,9 @@ class User(db.Model):
     __tablename__ = "users"
     user_id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     fname = db.Column(db.String(25), nullable=False)
-    lname = db.Column(db.String(30), nullable=True)
+    lname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), nullable=False, unique=True)
+    password = db.Column(db.String(10))
    
     recipients = db.relationship('Recipient', back_populates='user')
     events =db.relationship('Event',back_populates='user')
