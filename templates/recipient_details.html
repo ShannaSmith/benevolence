@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}{{recipient.r_name}} Details{% endblock title %}
+
+{% block body %}
+<div id="log-out">
+    <a href="/logout">Logout</a>
+</div>
+<hi>{{recipient.r_name}}</hi>
+<div class="sched_events" >
+<h2>Events</h2>
+<ul>
+     {% if session.get('user_email') %}
+        {% for event in recipient.events %}
+            <li>
+                {{ event.event_name}}:
+                <span class=event_num_{{ event.event_id}}>
+                    {{event.event_date}}
+                </span>
+            </li>
+        {% endfor %} 
+    {% endif %}}
+</ul>
+</div>
+<h3>Add Events</h3>
+<form action="users" id="likes" method="POST">
+   <p>
+    What is their favorite color?<input type="text" name="prompt_one">
+   </p> 
+   <p>
+    What is their favorite food?<input type="text" name="prompt_two">
+   </p>
+<p>
+    what are their hobbies/interest?<input type="text" name="prompt"> 
+</p>
+<p>
+    <input type="submit">
+</p>
+</form>
+</div>
+
+{% endblock body %}

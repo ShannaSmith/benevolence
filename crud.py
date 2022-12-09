@@ -7,9 +7,9 @@ def create_user(fname, lname, email, password):
     user= User(fname=fname, lname=lname, email=email, password=password)
     return user
 
-def get_recipients():
+def get_recipients(user_id):
         """return a list of all recipientnames with a link to that user"""
-        return Recipient.query.all()
+        return Recipient.query.filter(User.user_id == user_id).all()
 
 def get_recipient_by_id(recipient_id):
     """return recipient using its ID"""

@@ -49,6 +49,24 @@ def process_login():
         flash(f"Welcome back, {user.fname}!")
     return redirect("/")
 
+#Logout
+@app.route("/logout")
+def logout_user():
+    """process user log out"""
+    session.pop('user', None)
+    return redirect("/")
+
+@app.route("/recipient_profile/<recipient_id>")
+def recipient_profile(recipient_id):
+    """render reciepient profile page"""
+    recipient = crud.get_recipient_by_id(recipient_id)
+    return render_template('recipient_details.html', recipient=recipient)
+
+@app.route("/recipients/<user_id>")
+def users_recipients(user_id):
+    """display all users recipients """
+    recipients = crud.get_recipients(user_id)
+    return render_template("recipient_index.html", recipients=recipients)
 
 if __name__ == "__main__":
     connect_to_db(app)
