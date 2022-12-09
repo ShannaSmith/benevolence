@@ -3,16 +3,52 @@
 from flask import (Flask, render_template, request, flash, session, redirect)
 from model import connect_to_db, db
 import crud
+import os
 from jinja2 import StrictUndefined
 app = Flask(__name__)
-app.secret_key = "dev"
+app.secret_key = os.environ['SECRET_KEY']
 app.jinja_env.undefined = StrictUndefined
 
-# Replace this with routes and view functions!
+#  routes and view functions!
 @app.route('/')
 def homepage():
     """Create a route to view homepage"""
     return render_template('home_page.html')
+#  Create Account
+@app.route('/users/new', methods=["POST"])
+def register_user():
+    """Create account for new users"""
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = crud.get_user_by_email(email)
+
+    if user:
+        flash("Email already exist. Login or Try again.")
+        return redirect("/")
+    else:
+        user = crud.create_user(fname, lname, email, password)
+        db.session.add(user)
+        db.session.commit()
+        flash("Account created! Please log in.")
+        return redirect("/")
+# Login
+@app.route("/login", methods=["POST"])
+def process_login():
+    """process user login"""
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = crud.get_user_by_email(email)
+    if not user or user.password != password:
+        flash("The email or password you entered was incorrect.")
+    else:
+        session["user_email"] = user.email
+        flash(f"Welcome back, {user.fname}!")
+    return redirect("/")
+
 
 if __name__ == "__main__":
     connect_to_db(app)

@@ -2,3 +2,5 @@ env
 credentials.json
 token.json
 .env
+secrets.sh
+.pyc

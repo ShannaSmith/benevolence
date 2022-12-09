@@ -1,14 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content=""width=device-width">
-        <title>
-           Benevolent 
-        </title>
-       
-    </head>
-    <body>
+{% extends 'base.html' %}
+{% block title %}Benevolence Home{% endblock title %}
+
+{% block body %}
+ 
         <h1>Greetings Benevolent One!</h1>
-    </body>
-</html>
+        <h2>Navigation</h2>
+        <ul>
+            <li><a href="/recipients">View all recipients</a></li>
+            <li><a href="/events">View all events</a></li>
+        </ul>
+        <h2>Create Account</h2>
+        <form action="/users/new" method="POST">
+        <p> 
+            First name<input type="text" name=fname>
+        </p>
+        <p>
+            Last name<input type="text" name="lname">
+        </p>
+        <p>
+            Email<input type="text" name="email">
+        </p>
+        <p>
+            Password<input type="password" name="password">
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+        </form>
+        <h2>Log In</h2>
+        <form action="/login" method="POST">
+            <P>
+                Email <input type="text" name="email">
+            </P>
+            <p>
+                Password <input type="password" name="password">
+            </p>
+            <p>
+                <input type="submit">         
+             </p>
+        </form>
+        {% endblock body %}
+   
