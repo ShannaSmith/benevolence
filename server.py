@@ -68,6 +68,45 @@ def users_recipients(user_id):
     recipients = crud.get_recipients(user_id)
     return render_template("recipient_index.html", recipients=recipients)
 
+@app.route("likes/new", methods=["POST"])
+def create_likes(recipient_id):
+    """"Create likes """
+    logged_in_email = session.get("user_email")
+    prompt = request.form.get("event")
+    if logged_in_email is None:
+        flash("You must log in to add an like.")
+    elif not prompt:
+        flash("Error: you didn't answer any questions about your recipient.")
+    else:
+        user = crud.get_user_by_email(logged_in_email)
+        recipient = crud.get_recipient_by_id(recipient_id)
+
+        like = crud.create_like(user, prompt, recipient)
+
+@app.route("/events/new/<recipient_id>", methods=["POST"])
+def create_event(recipient_id):
+    """create events"""
+    logged_in_email = session.get("user_email")
+   
+   
+    if logged_in_email is None:
+        flash("you must log in to add an event")
+    else:
+        event_name = request.form.get("event_name")
+        event_date = request.form.get("event_date")
+        recipient = crud.get_recipient_by_id(recipient_id)
+
+        event = crud.create_event(recipient, event_name, event_date)
+        db.session.add(event)
+        db.session.commit()
+        flash(f"You have added {event_name} to this recipient")
+    return redirect(f"/recipient_profile/{recipient_id}")
+     
+
+
+
+
+    
 if __name__ == "__main__":
     connect_to_db(app)
 

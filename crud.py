@@ -24,10 +24,16 @@ def create_recipient(user, r_name):
     recipient= Recipient(user=user, r_name=r_name)
     return recipient
 
-def create_like(prompt, recipient, like_name):
+def create_like(user, prompt, recipient, like_name):
     """create a prompt"""
-    like=Like(prompt=prompt, recipient=recipient, like_name=like_name)
+    like = Like(user=user, prompt=prompt, recipient=recipient, like_name=like_name)
     return like
+
+def create_event(recipient, event_name, event_date):
+    """create new event"""
+    event = Event(event_name=event_name, event_date=event_date, recipient=recipient)
+    return event
+
 
 
 if __name__=='__main__':

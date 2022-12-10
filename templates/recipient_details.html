@@ -21,21 +21,32 @@
     {% endif %}}
 </ul>
 </div>
+<!-- <h3>Add Likes</h3>
+<form action="/likes/new" id="likes" method="POST">
+   <label for="fav_color">
+    What is their favorite color?<input type="text" name="fav_color">
+   </label><br><br>
+   <label for="fav_food">
+    What is their favorite food?<input type="text" name="fav_food">
+   </label><br><br>
+<label for="hobbies">
+    what are their hobbies/interest?<input type="text" name="hobbies"> 
+</label><br><br>
+    <input type="submit" value="Submit">
+</form> -->
 <h3>Add Events</h3>
-<form action="users" id="likes" method="POST">
-   <p>
-    What is their favorite color?<input type="text" name="prompt_one">
-   </p> 
-   <p>
-    What is their favorite food?<input type="text" name="prompt_two">
-   </p>
-<p>
-    what are their hobbies/interest?<input type="text" name="prompt"> 
-</p>
-<p>
-    <input type="submit">
-</p>
-</form>
-</div>
+{% if session.get('user_email') %}
+    <form action="/events/new" id="n_event" method="POST">
+    <label for="event_name">Enter the name of the event</label>
+    <input type="text" id="event_name" name="event_name">
+    <br>
+    <br>
+    <label for="event_date" id="event_date" name="event_date">Enter date to begin preparing for event</label>
+    <input type="date" id="event_date" name="event_date">
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+    </form>
+{% endif %}}
 
 {% endblock body %}
