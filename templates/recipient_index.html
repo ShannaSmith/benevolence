@@ -7,12 +7,12 @@
 </div>
 <h1> All Recipients</h1>
 <ul>
-{% for recipient in recipients %}
-<li>
-<a href="/recipient_profile/{{recipient.recipient_id}}">
+    {% for recipient in recipients %}
+    <li>
+        <a href="/recipients_profile/{{ recipient.recipient_id }}">
         {{recipient.r_name}}
-        </a>
-        </li>
-        {% endfor%}
-        </ul>
+        </a>   
+    </li>
+    {% endfor%}
+</ul>
 {% endblock body %}

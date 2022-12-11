@@ -8,8 +8,8 @@ def create_user(fname, lname, email, password):
     return user
 
 def get_recipients(user_id):
-        """return a list of all recipientnames with a link to that user"""
-        return Recipient.query.filter(User.user_id == user_id).all()
+        """return a list of all recipient names with a link to that user"""
+        return Recipient.query.filter(user_id == Recipient.user_id).all()
 
 def get_recipient_by_id(recipient_id):
     """return recipient using its ID"""

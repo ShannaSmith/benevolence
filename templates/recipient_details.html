@@ -5,11 +5,13 @@
 <div id="log-out">
     <a href="/logout">Logout</a>
 </div>
+
+
 <hi>{{recipient.r_name}}</hi>
 <div class="sched_events" >
 <h2>Events</h2>
 <ul>
-     {% if session.get('user_email') %}
+    {% if session.get('user_email') %}
         {% for event in recipient.events %}
             <li>
                 {{ event.event_name}}:
@@ -18,7 +20,7 @@
                 </span>
             </li>
         {% endfor %} 
-    {% endif %}}
+    {% endif %}
 </ul>
 </div>
 <!-- <h3>Add Likes</h3>
@@ -47,6 +49,8 @@
     <br>
     <input type="submit" value="Submit">
     </form>
-{% endif %}}
+{% endif %}
+
+
 
 {% endblock body %}

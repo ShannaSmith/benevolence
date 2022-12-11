@@ -39,9 +39,9 @@ for n in range(10):
     user =crud.create_user(fname, lname, email, password)
     model.db.session.add(user)
 # Create 10 fake recipients for user
-for i in range(10):
-    r_name = names.get_full_name()
-    recipient = crud.create_recipient(user, r_name)
-    model.db.session.add(recipient)
+    for i in range(10):
+        r_name = names.get_full_name()
+        recipient = crud.create_recipient(user, r_name)
+        model.db.session.add(recipient)
 
 model.db.session.commit()

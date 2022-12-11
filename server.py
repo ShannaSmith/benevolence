@@ -1,7 +1,8 @@
 """Server for movie benevolence app."""
 
 from flask import (Flask, render_template, request, flash, session, redirect)
-from model import connect_to_db, db
+
+from model import connect_to_db, db, User, Recipient, Note, Like, Prompt
 import crud
 import os
 from jinja2 import StrictUndefined
@@ -14,6 +15,7 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """Create a route to view homepage"""
     return render_template('home_page.html')
+
 #  Create Account
 @app.route('/users/new', methods=["POST"])
 def register_user():
@@ -34,6 +36,7 @@ def register_user():
         db.session.commit()
         flash("Account created! Please log in.")
         return redirect("/")
+
 # Login
 @app.route("/login", methods=["POST"])
 def process_login():
@@ -42,12 +45,13 @@ def process_login():
     password = request.form.get("password")
 
     user = crud.get_user_by_email(email)
+    print(user.user_id)
     if not user or user.password != password:
         flash("The email or password you entered was incorrect.")
     else:
         session["user_email"] = user.email
         flash(f"Welcome back, {user.fname}!")
-    return redirect("/")
+    return redirect(f"/recipients/{user.user_id}")
 
 #Logout
 @app.route("/logout")
@@ -56,19 +60,22 @@ def logout_user():
     session.pop('user', None)
     return redirect("/")
 
+# create route to recipient profile page
 @app.route("/recipient_profile/<recipient_id>")
 def recipient_profile(recipient_id):
-    """render reciepient profile page"""
+    """create route to reciepient profile page"""
     recipient = crud.get_recipient_by_id(recipient_id)
     return render_template('recipient_details.html', recipient=recipient)
 
+# see all recipients by user id
 @app.route("/recipients/<user_id>")
 def users_recipients(user_id):
-    """display all users recipients """
+    """create route to all users recipients """
     recipients = crud.get_recipients(user_id)
     return render_template("recipient_index.html", recipients=recipients)
 
-@app.route("likes/new", methods=["POST"])
+#create new like
+@app.route("/likes/new", methods=["POST"])
 def create_likes(recipient_id):
     """"Create likes """
     logged_in_email = session.get("user_email")
@@ -83,6 +90,7 @@ def create_likes(recipient_id):
 
         like = crud.create_like(user, prompt, recipient)
 
+# create new event
 @app.route("/events/new/<recipient_id>", methods=["POST"])
 def create_event(recipient_id):
     """create events"""
@@ -101,7 +109,15 @@ def create_event(recipient_id):
         db.session.commit()
         flash(f"You have added {event_name} to this recipient")
     return redirect(f"/recipient_profile/{recipient_id}")
-     
+
+# recipient detail page
+@app.route("/recipients_profile/<recipient_id>")
+def show_recipient(recipient_id):
+    """Show details of a particular recipient"""
+    recipient = crud.get_recipient_by_id(recipient_id)
+    return render_template("recipient_details.html", recipient=recipient)
+
+
 
 
 
