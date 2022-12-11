@@ -31,8 +31,8 @@ def create_like(user, prompt, recipient, like_name):
 
 def create_event(recipient, event_name, event_date):
     """create new event"""
-    event = Event(event_name=event_name, event_date=event_date, recipient=recipient)
-    return event
+    events = Event(event_name=event_name, event_date=event_date, recipient=recipient)
+    return events
 
 
 

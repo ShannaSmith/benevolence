@@ -38,7 +38,7 @@
 </form> -->
 <h3>Add Events</h3>
 {% if session.get('user_email') %}
-    <form action="/events/new" id="n_event" method="POST">
+    <form action="/recipients/{{ recipient.recipient_id }}/events" id="n_event" method="POST">
     <label for="event_name">Enter the name of the event</label>
     <input type="text" id="event_name" name="event_name">
     <br>

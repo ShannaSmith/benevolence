@@ -91,7 +91,7 @@ def create_likes(recipient_id):
         like = crud.create_like(user, prompt, recipient)
 
 # create new event
-@app.route("/events/new/<recipient_id>", methods=["POST"])
+@app.route("/recipients/<recipient_id>/events", methods=["POST"])
 def create_event(recipient_id):
     """create events"""
     logged_in_email = session.get("user_email")
@@ -105,10 +105,12 @@ def create_event(recipient_id):
         recipient = crud.get_recipient_by_id(recipient_id)
 
         event = crud.create_event(recipient, event_name, event_date)
+        print(f"!" *40)
+        print(event)
         db.session.add(event)
         db.session.commit()
         flash(f"You have added {event_name} to this recipient")
-    return redirect(f"/recipient_profile/{recipient_id}")
+    return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 # recipient detail page
 @app.route("/recipients_profile/<recipient_id>")
