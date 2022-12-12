@@ -105,8 +105,7 @@ def create_event(recipient_id):
         recipient = crud.get_recipient_by_id(recipient_id)
 
         event = crud.create_event(recipient, event_name, event_date)
-        print(f"!" *40)
-        print(event)
+
         db.session.add(event)
         db.session.commit()
         flash(f"You have added {event_name} to this recipient")
@@ -118,6 +117,26 @@ def show_recipient(recipient_id):
     """Show details of a particular recipient"""
     recipient = crud.get_recipient_by_id(recipient_id)
     return render_template("recipient_details.html", recipient=recipient)
+
+# Create new recipient
+@app.route("/recipients/new/<user_id>")
+def  add_recipient(user_id):
+    """create new Recipient"""
+    logged_in_email = session.get("user_email")
+    if logged_in_email is None:
+        flash("You must log in to add a recipient")
+    else:
+        user = crud.get_user_by_id(user_id)
+        r_name = request.form.get("new_r_name")
+
+        recipient = crud.create_recipient(user, r_name)
+
+        db.session.add(recipient)
+        db.session.commit()
+        flash(f"You have add {r_name} to your profile!")
+        return redirect(f"/recipients/{user.user_id}")
+
+
 
 
 

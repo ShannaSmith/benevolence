@@ -19,6 +19,9 @@ def get_user_by_email(email):
     """return user using their email address"""
     return User.query.filter(User.email == email).first()
 
+def get_user_by_id(user_id):
+    return User.query.filter(User.user_id == user_id).first()
+
 def create_recipient(user, r_name):
     """create new recipient """
     recipient= Recipient(user=user, r_name=r_name)
