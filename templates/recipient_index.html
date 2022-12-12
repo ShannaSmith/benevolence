@@ -17,7 +17,7 @@
 </ul>
 <h3>Add Recipient</h3>
 {% if session.get('user_email')%}
-    <form action="/recipients/new/{{user.user_id}}">
+<form action="/recipients/new/{{user.user_id}}" method="POST">
     <label for="new_r_name">Enter recipient's first and last name.</label>
     <input type="text" id="r_name" name="new_r_name">
     <br>

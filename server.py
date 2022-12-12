@@ -71,8 +71,9 @@ def recipient_profile(recipient_id):
 @app.route("/recipients/<user_id>")
 def users_recipients(user_id):
     """create route to all users recipients """
+    user = crud.get_user_by_id(user_id)
     recipients = crud.get_recipients(user_id)
-    return render_template("recipient_index.html", recipients=recipients)
+    return render_template("recipient_index.html", recipients=recipients, user=user)
 
 #create new like
 @app.route("/likes/new", methods=["POST"])
@@ -119,12 +120,13 @@ def show_recipient(recipient_id):
     return render_template("recipient_details.html", recipient=recipient)
 
 # Create new recipient
-@app.route("/recipients/new/<user_id>")
+@app.route("/recipients/new/<user_id>", methods=["POST"])
 def  add_recipient(user_id):
     """create new Recipient"""
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
         flash("You must log in to add a recipient")
+        return redirect("/")
     else:
         user = crud.get_user_by_id(user_id)
         r_name = request.form.get("new_r_name")
@@ -133,7 +135,7 @@ def  add_recipient(user_id):
 
         db.session.add(recipient)
         db.session.commit()
-        flash(f"You have add {r_name} to your profile!")
+        flash(f"You have added {r_name} to your profile!")
         return redirect(f"/recipients/{user.user_id}")
 
 
