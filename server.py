@@ -1,14 +1,26 @@
 """Server for movie benevolence app."""
-
-from flask import (Flask, render_template, request, flash, session, redirect)
+from __future__ import print_function
+from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 
 from model import connect_to_db, db, User, Recipient, Note, Like, Prompt
 import crud
 import os
 from jinja2 import StrictUndefined
+
+
+import datetime
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
 app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
 app.jinja_env.undefined = StrictUndefined
+
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 #  routes and view functions!
 @app.route('/')
@@ -96,20 +108,77 @@ def create_likes(recipient_id):
 def create_event(recipient_id):
     """create events"""
     logged_in_email = session.get("user_email")
-   
-   
     if logged_in_email is None:
         flash("you must log in to add an event")
     else:
         event_name = request.form.get("event_name")
         event_date = request.form.get("event_date")
         recipient = crud.get_recipient_by_id(recipient_id)
-
+        print('!' * 40)
+        print(event_date)
         event = crud.create_event(recipient, event_name, event_date)
 
         db.session.add(event)
         db.session.commit()
         flash(f"You have added {event_name} to this recipient")
+
+    creds = None
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    try:
+
+        service = build('calendar', 'v3', credentials=creds)
+        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+
+        event = {
+            'summary': 'Eastside Talent Show',
+            'location': '1750 Stone Ridge Drive, Stone Mountain, GA 30083',
+            'description': 'Eastside Talent Show and Holiday Party',
+            'start': {
+                'dateTime': '2022-12-13T17:00:00-07:00',
+                'timeZone': 'America/New_York',
+            },
+            'end': {
+                'dateTime': '2022-12-28T19:00:00-07:00',
+                'timeZone': 'America/New_York',
+            },
+            'recurrence': [
+                'RRULE:FREQ=DAILY;COUNT=1'
+            ],
+            'attendees': [
+                {'email': 'Nancy@test.com'},
+                {'email': 'sbrin@example.com'},
+            ],
+            'reminders': {
+                'useDefault': False,
+                'overrides': [
+                    {'method': 'email', 'minutes': 24 * 60},
+                    {'method': 'popup', 'minutes': 10},
+                ],
+            },
+        }
+
+
+        event = service.events().insert(calendarId='primary', body=event).execute()
+        print("!" *40)
+        print(event)
+    except HttpError as error:
+        print('An error occurred: %s' % error)
     return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 # recipient detail page
