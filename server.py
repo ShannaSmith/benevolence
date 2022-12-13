@@ -146,30 +146,16 @@ def create_event(recipient_id):
         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
 
         event = {
-            'summary': 'Eastside Talent Show',
+            'summary': event_name,
             'location': '1750 Stone Ridge Drive, Stone Mountain, GA 30083',
-            'description': 'Eastside Talent Show and Holiday Party',
+            'description': event_name,
             'start': {
-                'dateTime': '2022-12-13T17:00:00-07:00',
+                'date': event_date,
                 'timeZone': 'America/New_York',
             },
             'end': {
-                'dateTime': '2022-12-28T19:00:00-07:00',
+                'date': event_date,
                 'timeZone': 'America/New_York',
-            },
-            'recurrence': [
-                'RRULE:FREQ=DAILY;COUNT=1'
-            ],
-            'attendees': [
-                {'email': 'Nancy@test.com'},
-                {'email': 'sbrin@example.com'},
-            ],
-            'reminders': {
-                'useDefault': False,
-                'overrides': [
-                    {'method': 'email', 'minutes': 24 * 60},
-                    {'method': 'popup', 'minutes': 10},
-                ],
             },
         }
 
