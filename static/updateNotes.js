@@ -45,14 +45,6 @@ for (const btn of deleteButtons){
         // console.log(evt.target.id);
         const btnId = evt.target.value;
       console.log(btnId)
-        // const updateForm = document.querySelector(`#remove_recipient_${btn.id}`)
-        // updateForm.addEventListener('submit', (evt) =>{
-        //     evt.preventDefault();
-        //     console.log('recipient should have been deleted')
-        //  const formInput = { 
-        //     recipient_id: btnId,
-        // };    
-        // console.log(formInput)
         
         fetch(`/remove_recipient/${btnId}`, {
             method: 'POST',

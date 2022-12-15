@@ -267,7 +267,6 @@ def recipient_delete(recipient_id):
     recipient_id = int(recipient_id)
     print(recipient_id)
     recipient = crud.get_recipient_by_id(recipient_id)
-    user = User.query.filter(User.user_id == recipient.user_id).first
     events = crud.get_all_events(recipient_id)
     
     print(events)
