@@ -34,7 +34,7 @@ model.db.session.commit()
 for n in range(10):
     fname = names.get_first_name()
     lname = names.get_last_name()
-    email = f'{fname}@test.com'
+    email = f'{fname}{n}@test.com'
     password = 'test'
     user =crud.create_user(fname, lname, email, password)
     model.db.session.add(user)

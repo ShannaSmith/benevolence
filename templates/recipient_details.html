@@ -14,11 +14,35 @@
     {% if session.get('user_email') %}
         {% for event in recipient.events %}
             <li>
-                {{ event.event_name}}:
+                {{ event.event_name}}:<br>
                 <span class=event_num_{{ event.event_id}}>
-                    {{event.event_date}}
-                </span>
+                   Start preparing for this event on: {{event.event_date|datetimeformat}} <br>
+                    {% if not event.note %}
+                    <form action="/note/new/{{event.event_id}}" id="n_note" method="POST">
+                        <label for="note">Enter plan here</label> 
+                        <input type="textarea" id="event_note" name="note">
+                        <br>
+                        <br>
+                        <input type="submit" value="Submit">
+                        </form>
+                        {%else%}
+                        <span class=note_content_{{ event.note.note_id}}>
+                        Your Plans: {{event.note.content}}
+                        <button class="edit-note-content" id={{event.note.note_id}}> Edit plan</button>
+                        </span>
+                        <div class="hidden">
+                            <form action="/update_note", id="update_note_{{event.note.note_id}}" method="POST">
+                                <label for="note">Update Your plan here</label>
+                                <input type="textarea" id="update_event_note_{{event.note.note_id}}" name="note">
+                                <br>
+                                <br>
+                                <input type="submit" value="Submit">
+                            </form>
+                        </div>
+                        {% endif %}   
+                    </span>
             </li>
+            
         {% endfor %} 
     {% endif %}
 </ul>
@@ -51,6 +75,5 @@
     </form>
 {% endif %}
 
-
-
+<script src="../static/updateNotes.js"></script>
 {% endblock body %}

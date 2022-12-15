@@ -2,7 +2,7 @@
 from __future__ import print_function
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 
-from model import connect_to_db, db, User, Recipient, Note, Like, Prompt
+from model import connect_to_db, db, User, Recipient, Note, Like, Prompt, Event, Note
 import crud
 import os
 from jinja2 import StrictUndefined
@@ -110,6 +110,7 @@ def create_event(recipient_id):
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
         flash("you must log in to add an event")
+        return redirect("/")
     else:
         event_name = request.form.get("event_name")
         event_date = request.form.get("event_date")
@@ -192,6 +193,72 @@ def  add_recipient(user_id):
         db.session.commit()
         flash(f"You have added {r_name} to your profile!")
         return redirect(f"/recipients/{user.user_id}")
+
+#create note
+@app.route("/note/new/<event_id>", methods=["Post"])
+def create_new_note(event_id):
+    """create new note for event"""
+    logged_in_email = session.get("user_email")
+    if logged_in_email is None:
+        flash('You moust be logged in to create a note')
+        return redirect("/")
+    else:
+        user = crud.get_user_by_email(logged_in_email)
+        content = request.form.get("note")
+        event = crud.get_event_by_id(event_id)
+        note = crud.create_note(event, content)
+        event_name = event.event_name
+
+        db.session.add(note)
+        db.session.commit()
+        flash(f"You added your notes for {event_name}!")
+    # creds = None
+    # # The file token.json stores the user's access and refresh tokens, and is
+    # # created automatically when the authorization flow completes for the first
+    # # time.
+    # if os.path.exists('token.json'):
+    #     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # # If there are no (valid) credentials available, let the user log in.
+    # if not creds or not creds.valid:
+    #     if creds and creds.expired and creds.refresh_token:
+    #         creds.refresh(Request())
+    #     else:
+    #         flow = InstalledAppFlow.from_client_secrets_file(
+    #             'credentials.json', SCOPES)
+    #         creds = flow.run_local_server(port=0)
+    #     # Save the credentials for the next run
+    #     with open('token.json', 'w') as token:
+    #         token.write(creds.to_json())
+
+    # try:
+
+    #     service = build('calendar', 'v3', credentials=creds)
+    #     now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+    
+    #     event = service.events.get(calendarId='primary', eventId='eventId').execute()
+    #     event['description'] = note 
+    #     updated_event = service.events().update(calendarId='primary', eventId=event['id'], body=event).execute()
+    #     #print the updated date
+    #     print(updated_event['update'])
+    # except HttpError as error:
+    #     print('An error occurred: %s' % error)   
+        return redirect(f"/recipients/{user.user_id}")
+
+# Edit date format for Jinja templates
+@app.template_filter('datetimeformat')
+def datetimeformat(value, format='%B %d, %Y'):
+    """change date format"""
+    return value.strftime(format)
+
+# Update Note content
+@app.route("/update_note", methods=["POST"])
+def update_note():
+    note_id = request.json["note_id"]
+    update_content = request.json["update_content"]
+    crud.update_note(note_id, update_content)
+    db.session.commit()
+    return {"status":"Success"}
+
 
 
 

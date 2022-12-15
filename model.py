@@ -57,11 +57,11 @@ class Event(db.Model):
     event_date = db.Column(db.Date, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     recipient_id = db.Column(db.Integer, db.ForeignKey("recipients.recipient_id"))
-    note_id = db.Column(db.Integer, db.ForeignKey("notes.note_id"), nullable=True)
+    # note_id = db.Column(db.Integer, db.ForeignKey("notes.note_id"), nullable=True)
 
     user = db.relationship('User', back_populates='events')
     recipient = db.relationship('Recipient', back_populates='events')
-    # note = db.relationship('Note', uselist=False, backref='event')
+    note = db.relationship('Note', uselist=False, back_populates='event')
 
     def __repr__(self):
         return f"<Event ID={self.event_id} Name={self.event_name} Date={self.event_date}>"
@@ -72,11 +72,11 @@ class Note(db.Model):
     __tablename__="notes"
     note_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     content = db.Column(db.Text, nullable=True)
-    recipient_id = db.Column(db.Integer, db.ForeignKey("recipients.recipient_id"), nullable=False)
+    recipient_id = db.Column(db.Integer, db.ForeignKey("recipients.recipient_id"), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey("events.event_id"), nullable=False)
 
     recipient = db.relationship('Recipient', back_populates='notes')
-    # event = db.relationship('Event', uselist=False, backref='note')
+    event = db.relationship('Event', uselist=False, back_populates='note')
 
     def __repr__(self):
         return f"<Note ID={self.note_id} Content={self.content[:20]}>"

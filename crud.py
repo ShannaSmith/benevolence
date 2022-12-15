@@ -1,4 +1,5 @@
 """CRUD operation functions"""
+import psycopg2
 from model import db, User, Recipient, Note, Like, Event, Prompt, connect_to_db
 
 #Functions  start here:
@@ -27,9 +28,9 @@ def create_recipient(user, r_name):
     recipient= Recipient(user=user, r_name=r_name)
     return recipient
 
-def create_like(user, prompt, recipient, like_name):
+def create_like(prompt, recipient, like_name):
     """create a prompt"""
-    like = Like(user=user, prompt=prompt, recipient=recipient, like_name=like_name)
+    like = Like(prompt=prompt, recipient=recipient, like_name=like_name)
     return like
 
 def create_event(recipient, event_name, event_date):
@@ -37,7 +38,25 @@ def create_event(recipient, event_name, event_date):
     events = Event(event_name=event_name, event_date=event_date, recipient=recipient)
     return events
 
+def create_note(event, content):
+    """create new note"""
+    note = Note(event=event, content=content)
+    return note
 
+def get_event_by_id(event_id):
+    return Event.query.filter(Event.event_id == event_id).first()
+
+def get_note_by_id(note_id):
+    return Note.query.filter(Note.note_id == note_id).first()
+
+def delete_recipient(recipient_id):
+    """delete recipient by recipient id"""
+    pass
+
+def update_note(note_id, update_content):
+    """update a note given note_id and the updated content"""
+    note = Note.query.get(note_id)
+    note.content = update_content
 
 if __name__=='__main__':
     from server import app
