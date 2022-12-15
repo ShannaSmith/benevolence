@@ -2,7 +2,6 @@ console.log('connected to jinja')
 editButtons = document.querySelectorAll('.edit-note-content');
 for (const button of editButtons){
     button.addEventListener('click', () =>{
-        console.log('button');
         console.log(button.id)
         const view = document.querySelector('.hidden');
         view.classList.remove('hidden');
@@ -37,3 +36,38 @@ for (const button of editButtons){
         } ) 
 
         })};
+
+const deleteButtons = document.querySelectorAll(".remove_recipient");
+// console.log(deleteButtons)
+for (const btn of deleteButtons){
+    // console.log(btn)
+    btn.addEventListener('click', (evt) =>{
+        // console.log(evt.target.id);
+        const btnId = evt.target.value;
+      console.log(btnId)
+        // const updateForm = document.querySelector(`#remove_recipient_${btn.id}`)
+        // updateForm.addEventListener('submit', (evt) =>{
+        //     evt.preventDefault();
+        //     console.log('recipient should have been deleted')
+        //  const formInput = { 
+        //     recipient_id: btnId,
+        // };    
+        // console.log(formInput)
+        
+        fetch(`/remove_recipient/${btnId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+          .then((response) =>response.json())
+          .then((responseJson) =>{
+          document.querySelector(`#link-${btnId}`).remove();
+          document.querySelector(`#remove_recipient_${btnId}`).remove();
+            alert(responseJson.status);
+          });
+
+    })
+};
+
+

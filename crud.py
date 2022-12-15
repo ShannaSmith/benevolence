@@ -58,6 +58,13 @@ def update_note(note_id, update_content):
     note = Note.query.get(note_id)
     note.content = update_content
 
+def get_all_events(recipient_id):
+    return Event.query.filter(Event.recipient_id == recipient_id).all()
+
+def get_all_notes(event_id):
+    return Note.query.filter(Note.event_id == event_id).first()
+
+
 if __name__=='__main__':
     from server import app
     connect_to_db(app)

@@ -1,28 +1,40 @@
-{% extends 'base.html' %}
-{% block title %}Benevolence recipient Index{% endblock title %}
-
-{% block body %}
+{% extends 'base.html' %} {% block title %}Benevolence recipient Index{%
+endblock title %} {% block body %}
 <div id="log-out">
-    <a href="/logout">Logout</a>
+  <a href="/logout">Logout</a>
 </div>
-<h1> All Recipients</h1>
+<h1>All Recipients</h1>
 <ul>
-    {% for recipient in recipients %}
-    <li>
-        <a href="/recipients_profile/{{ recipient.recipient_id }}">
-        {{recipient.r_name}}
-        </a>   
-    </li>
-    {% endfor%}
+  {% for recipient in recipients %}
+  <li>
+    <a
+      id="link-{{recipient.recipient_id}}"
+      href="/recipients_profile/{{ recipient.recipient_id }}"
+    >
+      {{recipient.r_name}}
+    </a>
+    <br />
+    <button
+      class="remove_recipient"
+     
+      id="remove_recipient_{{recipient.recipient_id}}"
+      value="{{recipient.recipient_id}}"
+    >
+      Delete
+    </button>
+  </li>
+  {% endfor%}
 </ul>
 <h3>Add Recipient</h3>
 {% if session.get('user_email')%}
 <form action="/recipients/new/{{user.user_id}}" method="POST">
-    <label for="new_r_name">Enter recipient's first and last name.</label>
-    <input type="text" id="r_name" name="new_r_name">
-    <br>
-    <br>
-    <input type="submit" value="Submit">
+  <label for="new_r_name">Enter recipient's first and last name.</label>
+  <input type="text" id="r_name" name="new_r_name" />
+  <br />
+  <br />
+  <input type="submit" value="Submit" />
 </form>
+
 {% endif %}
-{% endblock body %}
+<script src="../static/updateNotes.js"></script>
+ {% endblock body %}

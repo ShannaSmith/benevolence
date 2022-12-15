@@ -259,6 +259,29 @@ def update_note():
     db.session.commit()
     return {"status":"Success"}
 
+    # Delete Recipient
+@app.route("/remove_recipient/<recipient_id>",methods=["POST"] )
+def recipient_delete(recipient_id):
+    print('!'*40)
+    print(recipient_id)
+    recipient_id = int(recipient_id)
+    print(recipient_id)
+    recipient = crud.get_recipient_by_id(recipient_id)
+    user = User.query.filter(User.user_id == recipient.user_id).first
+    events = crud.get_all_events(recipient_id)
+    
+    print(events)
+    for event in events:
+        event_id = event.event_id
+        note = crud.get_all_notes(event_id)
+        db.session.delete(note)
+        db.session.delete(event)
+    db.session.delete(recipient)
+    db.session.commit()
+    return {"status":"Success"}
+
+   
+
 
 
 
