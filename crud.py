@@ -33,9 +33,9 @@ def create_like(prompt, recipient, like_name):
     like = Like(prompt=prompt, recipient=recipient, like_name=like_name)
     return like
 
-def create_event(recipient, event_name, event_date):
+def create_event(recipient, event_name, event_date, event_gid):
     """create new event"""
-    events = Event(event_name=event_name, event_date=event_date, recipient=recipient)
+    events = Event(event_name=event_name, event_date=event_date, event_gid=event_gid, recipient=recipient)
     return events
 
 def create_note(event, content):
@@ -64,7 +64,9 @@ def get_all_events(recipient_id):
 def get_all_notes(event_id):
     return Note.query.filter(Note.event_id == event_id).first()
 
-
+def get_event_gid(event_id):
+   event = Event.query.filter(Event.event_id == event_id).first()
+   return event.event_gid
 if __name__=='__main__':
     from server import app
     connect_to_db(app)

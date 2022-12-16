@@ -55,6 +55,7 @@ class Event(db.Model):
     event_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     event_name = db.Column(db.String(50), nullable=False)
     event_date = db.Column(db.Date, nullable=False)
+    event_gid = db.Column(db.String(40), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     recipient_id = db.Column(db.Integer, db.ForeignKey("recipients.recipient_id"))
     # note_id = db.Column(db.Integer, db.ForeignKey("notes.note_id"), nullable=True)

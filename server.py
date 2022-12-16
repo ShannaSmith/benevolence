@@ -117,11 +117,11 @@ def create_event(recipient_id):
         recipient = crud.get_recipient_by_id(recipient_id)
         print('!' * 40)
         print(event_date)
-        event = crud.create_event(recipient, event_name, event_date)
+        # event = crud.create_event(recipient, event_name, event_date)
 
-        db.session.add(event)
-        db.session.commit()
-        flash(f"You have added {event_name} to this recipient")
+        # db.session.add(event)
+        # db.session.commit()
+        # flash(f"You have added {event_name} to this recipient")
 
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -162,10 +162,19 @@ def create_event(recipient_id):
 
 
         event = service.events().insert(calendarId='primary', body=event).execute()
+        event_gid = event['id']
+        print('$' * 40)
+        print(event_gid)
         print("!" *40)
         print(event)
     except HttpError as error:
         print('An error occurred: %s' % error)
+    event = crud.create_event(recipient, event_name, event_date, event_gid)
+
+    db.session.add(event)
+    db.session.commit()
+    flash(f"You have added {event_name} to this recipient")
+
     return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 # recipient detail page
@@ -195,7 +204,7 @@ def  add_recipient(user_id):
         return redirect(f"/recipients/{user.user_id}")
 
 #create note
-@app.route("/note/new/<event_id>", methods=["Post"])
+@app.route("/note/new/<event_id>", methods=["Post", "GET"])
 def create_new_note(event_id):
     """create new note for event"""
     logged_in_email = session.get("user_email")
@@ -212,37 +221,59 @@ def create_new_note(event_id):
         db.session.add(note)
         db.session.commit()
         flash(f"You added your notes for {event_name}!")
-    # creds = None
-    # # The file token.json stores the user's access and refresh tokens, and is
-    # # created automatically when the authorization flow completes for the first
-    # # time.
-    # if os.path.exists('token.json'):
-    #     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    # # If there are no (valid) credentials available, let the user log in.
-    # if not creds or not creds.valid:
-    #     if creds and creds.expired and creds.refresh_token:
-    #         creds.refresh(Request())
-    #     else:
-    #         flow = InstalledAppFlow.from_client_secrets_file(
-    #             'credentials.json', SCOPES)
-    #         creds = flow.run_local_server(port=0)
-    #     # Save the credentials for the next run
-    #     with open('token.json', 'w') as token:
-    #         token.write(creds.to_json())
-
-    # try:
-
-    #     service = build('calendar', 'v3', credentials=creds)
-    #     now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
     
-    #     event = service.events.get(calendarId='primary', eventId='eventId').execute()
-    #     event['description'] = note 
-    #     updated_event = service.events().update(calendarId='primary', eventId=event['id'], body=event).execute()
-    #     #print the updated date
-    #     print(updated_event['update'])
-    # except HttpError as error:
-    #     print('An error occurred: %s' % error)   
-        return redirect(f"/recipients/{user.user_id}")
+        return redirect(f"/note/api/{event_id}")
+
+# add description to google API
+@app.route("/note/api/<event_id>")
+def add_google_description(event_id):
+    """Add description to event on Google calendar"""
+    logged_in_email = session.get("user_email")
+    if logged_in_email is None:
+        flash("you must log in to add an event")
+        return redirect("/")
+    else:
+        user = crud.get_user_by_email(logged_in_email)  
+        event = crud.get_event_by_id(event_id)  
+        note = event.note.note_id
+        print('^'*40)
+        print(note)
+        content = event.note.content
+        print('&'*40)
+        print(content)
+        event_gid = crud.get_event_gid(event_id)
+    creds = None
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    try:
+
+        service = build('calendar', 'v3', credentials=creds)
+        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+        event = service.events().get(calendarId='primary', eventId= event_gid).execute()
+        print('!'*40)
+        print(event)
+        event['description'] = content
+        updated_event = service.events().update(calendarId='primary', eventId=event_gid, body=event).execute()
+        #print the updated date
+        # print(updated_event['update'])
+    except HttpError as error:
+        print('An error occurred: %s' % error)  
+    return redirect(f"/recipients/{user.user_id}") 
 
 # Edit date format for Jinja templates
 @app.template_filter('datetimeformat')
