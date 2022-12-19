@@ -1,23 +1,33 @@
 console.log('connected to jinja')
 editButtons = document.querySelectorAll('.edit-note-content');
+console.log(editButtons);
 for (const button of editButtons){
-    button.addEventListener('click', () =>{
+    button.addEventListener('click', (evt) =>{
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!')
+        console.log( evt.target.value);
+        const buttonId = evt.target.value;
         console.log(button.id)
-        const view = document.querySelector('.hidden');
-        view.classList.remove('hidden');
+        
+        const view = document.getElementById(`update_note_${buttonId}`);
+        console.log(view);
+       const oldContent= document.querySelector(`#note_content${buttonId}`).innerText;
+       
 
-        const buttonId = button.id;
-        const updateForm = document.querySelector(`#update_note_${button.id}`)
-        console.log(`update_note_${button.id}`)
+        view.classList.remove('hidden');
+        const contentBox = document.querySelector(`#update_event_note_${buttonId}`);
+        contentBox.value=oldContent;
+        console.log(buttonId);
+        const updateForm = document.querySelector(`#update_note_${buttonId}`)
+        console.log(`update_note_${buttonId}`)
         console.log(updateForm)
         updateForm.addEventListener('submit', (evt) =>{
-            evt.preventDefault();
+             evt.preventDefault();
             console.log('form should have been submitted')
 
-            const newContent = document.getElementById(`update_event_note_${button.id}`).value
+            const newContent = document.getElementById(`update_event_note_${buttonId}`).value
             const formInput = {
                 update_content: newContent,
-                note_id: button.id,
+                note_id: Number(buttonId),
             };
             console.log(formInput)
             fetch('/update_note', {
@@ -29,13 +39,16 @@ for (const button of editButtons){
             })
               .then((response) =>response.json())
               .then((responseJson) =>{
-              document.querySelector(`note_content_${button.id}`).innerHTML = newContent;
+                console.log('second then')
+              document.querySelector(`.note_content_${buttonId}`).innerHTML = newContent;
+              console.log(`change html ${newContent}`)
                 alert(responseJson.status);
               });
     
-        } ) 
-
-        })};
+        }) 
+        
+        })   
+    };
 
 const deleteButtons = document.querySelectorAll(".remove_recipient");
 // console.log(deleteButtons)

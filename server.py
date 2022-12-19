@@ -57,9 +57,9 @@ def process_login():
     password = request.form.get("password")
 
     user = crud.get_user_by_email(email)
-    print(user.user_id)
     if not user or user.password != password:
         flash("The email or password you entered was incorrect.")
+        return redirect("/")
     else:
         session["user_email"] = user.email
         flash(f"Welcome back, {user.fname}!")
@@ -71,6 +71,28 @@ def logout_user():
     """process user log out"""
     session.pop('user', None)
     return redirect("/")
+
+#Google API helper function
+def connect_google_API():
+    creds = None
+        # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+    return(creds)
+
 
 # create route to recipient profile page
 @app.route("/recipient_profile/<recipient_id>")
@@ -117,30 +139,10 @@ def create_event(recipient_id):
         recipient = crud.get_recipient_by_id(recipient_id)
         print('!' * 40)
         print(event_date)
-        # event = crud.create_event(recipient, event_name, event_date)
 
-        # db.session.add(event)
-        # db.session.commit()
-        # flash(f"You have added {event_name} to this recipient")
-
-    creds = None
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
-
+    creds = connect_google_API()
+    print('!' * 40)
+    print(f" creds print out {creds}")
     try:
 
         service = build('calendar', 'v3', credentials=creds)
@@ -148,7 +150,7 @@ def create_event(recipient_id):
 
         event = {
             'summary': event_name,
-            'location': '1750 Stone Ridge Drive, Stone Mountain, GA 30083',
+            # 'location': '1750 Stone Ridge Drive, Stone Mountain, GA 30083',
             'description': event_name,
             'start': {
                 'date': event_date,
@@ -217,6 +219,7 @@ def create_new_note(event_id):
         event = crud.get_event_by_id(event_id)
         note = crud.create_note(event, content)
         event_name = event.event_name
+        
 
         db.session.add(note)
         db.session.commit()
@@ -234,7 +237,9 @@ def add_google_description(event_id):
         return redirect("/")
     else:
         user = crud.get_user_by_email(logged_in_email)  
-        event = crud.get_event_by_id(event_id)  
+        event = crud.get_event_by_id(event_id) 
+        recipient_Id= event.recipient.recipient_id
+        recipient = crud.get_recipient_by_id(recipient_Id) 
         note = event.note.note_id
         print('^'*40)
         print(note)
@@ -242,24 +247,7 @@ def add_google_description(event_id):
         print('&'*40)
         print(content)
         event_gid = crud.get_event_gid(event_id)
-    creds = None
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
-
+        creds = connect_google_API()
     try:
 
         service = build('calendar', 'v3', credentials=creds)
@@ -270,10 +258,10 @@ def add_google_description(event_id):
         event['description'] = content
         updated_event = service.events().update(calendarId='primary', eventId=event_gid, body=event).execute()
         #print the updated date
-        # print(updated_event['update'])
+        print(updated_event['description'])
     except HttpError as error:
         print('An error occurred: %s' % error)  
-    return redirect(f"/recipients/{user.user_id}") 
+    return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 # Edit date format for Jinja templates
 @app.template_filter('datetimeformat')
@@ -284,11 +272,47 @@ def datetimeformat(value, format='%B %d, %Y'):
 # Update Note content
 @app.route("/update_note", methods=["POST"])
 def update_note():
-    note_id = request.json["note_id"]
+    """change note content"""
+    note_id = int(request.json["note_id"])
+    
+    
+   
+    note = crud.get_note_by_id(note_id)
+    print('^' * 40)
+    print(note)
+    event_id=note.event_id
+    event = crud.get_event_by_id(event_id)
+    print('!' * 40)
+    print(event)
+    recipient_Id = event.recipient.recipient_id
+    recipient = crud.get_recipient_by_id(recipient_Id)
+    print('!' * 40)
+    print(recipient)
     update_content = request.json["update_content"]
     crud.update_note(note_id, update_content)
     db.session.commit()
-    return {"status":"Success"}
+    flash(f"You have succesfully updated this note in the database")
+    content = event.note.content
+    print('&'*40)
+    print(content)
+    event_gid = crud.get_event_gid(event_id)
+    creds = connect_google_API()
+    try:
+
+        service = build('calendar', 'v3', credentials=creds)
+        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+        event = service.events().get(calendarId='primary', eventId= event_gid).execute()
+        print('!'*40)
+        print(event)
+        event['description'] = content
+        updated_event = service.events().update(calendarId='primary', eventId=event_gid, body=event).execute()
+        #print the updated date
+        print(updated_event['description'])
+        flash(f"Google Calendar has your note")
+    except HttpError as error:
+        print('An error occurred: %s' % error)  
+        flash(f" Error content update to Google calendar was unsuccessful")
+    return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
     # Delete Recipient
 @app.route("/remove_recipient/<recipient_id>",methods=["POST"] )

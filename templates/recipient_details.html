@@ -26,17 +26,17 @@
                         <input type="submit" value="Submit">
                         </form>
                         {%else%}
-                        <span class=note_content_{{ event.note.note_id}}>
-                        Your Plans: {{event.note.content}}
-                        <button class="edit-note-content" id={{event.note.note_id}}> Edit plan</button>
+                        <span class="note_content_{{event.note.note_id}}" >
+                        Your Plans:<span id="note_content{{event.note.note_id}}">{{event.note.content}}</span> 
+                        <button class="edit-note-content" value ="{{event.note.note_id}}"  id="{{event.note.note_id}}"> Edit plan</button>
                         </span>
-                        <div class="hidden">
-                            <form action="/update_note", id="update_note_{{event.note.note_id}}" method="POST">
+                        <div>
+                            <form action="/update_note/" class="hidden", id="update_note_{{event.note.note_id}}" method="POST">
                                 <label for="note">Update Your plan here</label>
                                 <input type="textarea" id="update_event_note_{{event.note.note_id}}" name="note">
                                 <br>
                                 <br>
-                                <input type="submit" value="Submit">
+                                <input class="submit_note_{{event.note.note_id}}"  onClick="document.location.reload()" type="submit"  value="Submit">
                             </form>
                         </div>
                         {% endif %}   
