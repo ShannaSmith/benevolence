@@ -9,8 +9,8 @@ def create_user(fname, lname, email, password):
     return user
 
 def get_recipients(user_id):
-        """return a list of all recipient names with a link to that user"""
-        return Recipient.query.filter(user_id == Recipient.user_id).all()
+    """return a list of all recipient names with a link to that user"""
+    return Recipient.query.filter(user_id == Recipient.user_id).all()
 
 def get_recipient_by_id(recipient_id):
     """return recipient using its ID"""
@@ -28,9 +28,9 @@ def create_recipient(user, r_name):
     recipient= Recipient(user=user, r_name=r_name)
     return recipient
 
-def create_like(prompt, recipient, like_name):
+def create_like(prompt_id, recipient, like_name):
     """create a prompt"""
-    like = Like(prompt=prompt, recipient=recipient, like_name=like_name)
+    like = Like(prompt_id=prompt_id, recipient=recipient, like_name=like_name)
     return like
 
 def create_event(recipient, event_name, event_date, event_gid):
@@ -65,8 +65,17 @@ def get_all_notes(event_id):
     return Note.query.filter(Note.event_id == event_id).first()
 
 def get_event_gid(event_id):
-   event = Event.query.filter(Event.event_id == event_id).first()
-   return event.event_gid
+    event = Event.query.filter(Event.event_id == event_id).first()
+    return event.event_gid
+
+def get_all_prompts():
+    return  Prompt.query.all()
+
+
+
+
+
 if __name__=='__main__':
     from server import app
     connect_to_db(app)
+

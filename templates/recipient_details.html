@@ -7,7 +7,7 @@
 </div>
 
 
-<hi>{{recipient.r_name}}</hi>
+<h1>{{recipient.r_name}}</h1>
 <div class="sched_events" >
 <h2>Events</h2>
 <ul>
@@ -47,19 +47,34 @@
     {% endif %}
 </ul>
 </div>
-<!-- <h3>Add Likes</h3>
-<form action="/likes/new" id="likes" method="POST">
-   <label for="fav_color">
-    What is their favorite color?<input type="text" name="fav_color">
-   </label><br><br>
-   <label for="fav_food">
-    What is their favorite food?<input type="text" name="fav_food">
-   </label><br><br>
-<label for="hobbies">
-    what are their hobbies/interest?<input type="text" name="hobbies"> 
-</label><br><br>
-    <input type="submit" value="Submit">
-</form> -->
+
+<h2>Their Favorite Things</h2>
+<ul>
+
+    {% for like in recipient.likes %}
+    <li>
+        {{like.like_name}}
+    </li>
+    {% endfor %}
+
+
+</ul>
+</div>
+<h3>Add Interests</h3>
+{% for prompt in prompts %} 
+    <form action="/likes/new/{{recipient.recipient_id}}" class="likes" method="POST">
+        <label for="prompt_reply">{{prompt.prompt_name}}</label>
+        <input type="text" name="prompt_reply">
+        <input type="hidden" name="prompt_id" value="{{prompt.prompt_id}}">
+        <input type="submit" value="Submit">
+    </form>
+{% endfor %}
+
+
+
+
+
+
 <h3>Add Events</h3>
 {% if session.get('user_email') %}
     <form action="/recipients/{{ recipient.recipient_id }}/events" id="n_event" method="POST">

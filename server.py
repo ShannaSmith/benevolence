@@ -93,13 +93,13 @@ def connect_google_API():
             token.write(creds.to_json())
     return(creds)
 
-
-# create route to recipient profile page
-@app.route("/recipient_profile/<recipient_id>")
-def recipient_profile(recipient_id):
-    """create route to reciepient profile page"""
-    recipient = crud.get_recipient_by_id(recipient_id)
-    return render_template('recipient_details.html', recipient=recipient)
+#toDO
+# # create route to recipient profile page
+# @app.route("/recipient_profile/<recipient_id>")
+# def recipient_profile(recipient_id):
+#     """create route to reciepient profile page"""
+#     recipient = crud.get_recipient_by_id(recipient_id)
+#     return render_template('recipient_details.html', recipient=recipient)
 
 # see all recipients by user id
 @app.route("/recipients/<user_id>")
@@ -110,21 +110,27 @@ def users_recipients(user_id):
     return render_template("recipient_index.html", recipients=recipients, user=user)
 
 #create new like
-@app.route("/likes/new", methods=["POST"])
+@app.route("/likes/new/<recipient_id>", methods=["POST"])
 def create_likes(recipient_id):
     """"Create likes """
     logged_in_email = session.get("user_email")
-    prompt = request.form.get("event")
+    
     if logged_in_email is None:
         flash("You must log in to add an like.")
-    elif not prompt:
-        flash("Error: you didn't answer any questions about your recipient.")
-    else:
-        user = crud.get_user_by_email(logged_in_email)
-        recipient = crud.get_recipient_by_id(recipient_id)
-
-        like = crud.create_like(user, prompt, recipient)
-
+        return redirect('/')
+    
+    prompt_id = request.form.get("prompt_id")
+    user_answer = request.form.get("prompt_reply")
+    
+    user = crud.get_user_by_email(logged_in_email)
+    recipient = crud.get_recipient_by_id(recipient_id)
+    
+    like = crud.create_like(prompt_id, recipient, user_answer)
+    
+    db.session.add(like)
+    db.session.commit()
+    flash(f"You have added {user_answer} to this recipient")
+    return redirect(f"/recipients_profile/{recipient.recipient_id}")
 # create new event
 @app.route("/recipients/<recipient_id>/events", methods=["POST"])
 def create_event(recipient_id):
@@ -184,7 +190,13 @@ def create_event(recipient_id):
 def show_recipient(recipient_id):
     """Show details of a particular recipient"""
     recipient = crud.get_recipient_by_id(recipient_id)
-    return render_template("recipient_details.html", recipient=recipient)
+    used_prompt_ids = set([like.prompt_id for like in recipient.likes])
+    all_prompts = crud.get_all_prompts()
+    prompts = []
+    for prompt in all_prompts:
+        if prompt.prompt_id not in used_prompt_ids:
+            prompts.append(prompt)
+    return render_template("recipient_details.html", recipient=recipient, prompts=prompts)
 
 # Create new recipient
 @app.route("/recipients/new/<user_id>", methods=["POST"])
@@ -274,9 +286,7 @@ def datetimeformat(value, format='%B %d, %Y'):
 def update_note():
     """change note content"""
     note_id = int(request.json["note_id"])
-    
-    
-   
+
     note = crud.get_note_by_id(note_id)
     print('^' * 40)
     print(note)
