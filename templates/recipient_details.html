@@ -2,9 +2,7 @@
 {% block title %}{{recipient.r_name}} Details{% endblock title %}
 
 {% block body %}
-<div id="log-out">
-    <a href="/logout">Logout</a>
-</div>
+<div id="recipient-details"></div>
 
 
 <h1>{{recipient.r_name}}</h1>
@@ -89,6 +87,8 @@
     <input type="submit" value="Submit">
     </form>
 {% endif %}
-
-<script src="../static/updateNotes.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="../static/js/recipientProfile.jsx" type="text/jsx"></script>
 {% endblock body %}
