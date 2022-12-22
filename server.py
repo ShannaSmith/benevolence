@@ -185,8 +185,16 @@ def create_event(recipient_id):
 
     return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
+
 # recipient detail page
 @app.route("/recipients_profile/<recipient_id>")
+def show_recipient_page(recipient_id):
+    recipient = crud.get_recipient_by_id(recipient_id)
+    return render_template('recipient_details.html', recipient_id=recipient_id, recipient=recipient)
+
+
+# recipient detail Ajax
+@app.route("/api/recipients_profile/<recipient_id>")
 def show_recipient(recipient_id):
     """Show details of a particular recipient"""
     recipient = crud.get_recipient_by_id(recipient_id)
@@ -196,7 +204,25 @@ def show_recipient(recipient_id):
     for prompt in all_prompts:
         if prompt.prompt_id not in used_prompt_ids:
             prompts.append(prompt)
-    return render_template("recipient_details.html", recipient=recipient, prompts=prompts)
+    # convert recipient in prompt into dictionaries so they can be serialized
+    data={'user_email':session.get('user_email')}
+    data['recipient']={'recipient_id':recipient_id, 'r_name':recipient.r_name}
+    events_data =[]
+    for event in recipient.events:
+        note_data = None
+        if event.note != None:
+            note_data = {'note_id':event.note.note_id, 'content':event.note.content}
+        event_data ={'event_id':event.event_id, 'event_name':event.event_name, 'event_date':event.event_date, 'note':note_data}
+        events_data.append(event_data)
+    data['events'] = events_data
+    
+    prompts_data = []
+    for prompt in prompts:
+        prompt_data = {'prompt_id':prompt.prompt_id, 'prompt_name':prompt.prompt_name}
+        prompts_data.append(prompt_data)
+    data['prompts'] = prompts_data
+
+    return jsonify(data)
 
 # Create new recipient
 @app.route("/recipients/new/<user_id>", methods=["POST"])

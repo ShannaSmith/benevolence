@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}{{recipient.r_name}} Details{% endblock title %}
+
+{% block body %}
+<div id="recipient-details"></div>
+
+
+<h1>{{recipient.r_name}}</h1>
+<div class="sched_events" >
+<h2>Events</h2>
+<ul>
+    {% if session.get('user_email') %}
+        {% for event in recipient.events %}
+            <li>
+                {{ event.event_name}}:<br>
+                <span class=event_num_{{ event.event_id}}>
+                   Start preparing for this event on: {{event.event_date|datetimeformat}} <br>
+                    {% if not event.note %}
+                    <form action="/note/new/{{event.event_id}}" id="n_note" method="POST">
+                        <label for="note">Enter plan here</label> 
+                        <input type="textarea" id="event_note" name="note">
+                        <br>
+                        <br>
+                        <input type="submit" value="Submit">
+                        </form>
+                        {%else%}
+                        <span class="note_content_{{event.note.note_id}}" >
+                        Your Plans:<span id="note_content{{event.note.note_id}}">{{event.note.content}}</span> 
+                        <button class="edit-note-content" value ="{{event.note.note_id}}"  id="{{event.note.note_id}}"> Edit plan</button>
+                        </span>
+                        <div>
+                            <form action="/update_note/" class="hidden", id="update_note_{{event.note.note_id}}" method="POST">
+                                <label for="note">Update Your plan here</label>
+                                <input type="textarea" id="update_event_note_{{event.note.note_id}}" name="note">
+                                <br>
+                                <br>
+                                <input class="submit_note_{{event.note.note_id}}"  onClick="document.location.reload()" type="submit"  value="Submit">
+                            </form>
+                        </div>
+                        {% endif %}   
+                    </span>
+            </li>
+            
+        {% endfor %} 
+    {% endif %}
+</ul>
+</div>
+
+<h2>Their Favorite Things</h2>
+<ul>
+
+    {% for like in recipient.likes %}
+    <li>
+        {{like.like_name}}
+    </li>
+    {% endfor %}
+
+
+</ul>
+</div>
+<h3>Add Interests</h3>
+{% for prompt in prompts %} 
+    <form action="/likes/new/{{recipient.recipient_id}}" class="likes" method="POST">
+        <label for="prompt_reply">{{prompt.prompt_name}}</label>
+        <input type="text" name="prompt_reply">
+        <input type="hidden" name="prompt_id" value="{{prompt.prompt_id}}">
+        <input type="submit" value="Submit">
+    </form>
+{% endfor %}
+
+
+
+
+
+
+<h3>Add Events</h3>
+{% if session.get('user_email') %}
+    <form action="/recipients/{{ recipient.recipient_id }}/events" id="n_event" method="POST">
+    <label for="event_name">Enter the name of the event</label>
+    <input type="text" id="event_name" name="event_name">
+    <br>
+    <br>
+    <label for="event_date" id="event_date" name="event_date">Enter date to begin preparing for event</label>
+    <input type="date" id="event_date" name="event_date">
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+    </form>
+{% endif %}
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="../static/js/recipientProfile.jsx" type="text/jsx"></script>
+{% endblock body %}

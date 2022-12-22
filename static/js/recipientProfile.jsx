@@ -5,4 +5,15 @@ function RecipientDetails(props) {
     </div>
   );
 }
-ReactDOM.render(<RecipientDetails/>, document.querySelector('#recipient-details'));
+fetch(`/api/recipients_profile/${recipientId}`)
+.then(response => response.json())
+.then(responseJson =>{
+    console.log(responseJson);
+    ReactDOM.render(
+        <RecipientDetails 
+            recipientId={recipientId}
+        />, 
+        document.querySelector('#recipient-details')
+    );
+});
+
