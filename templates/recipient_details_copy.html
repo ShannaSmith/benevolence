@@ -5,9 +5,7 @@
 <div id="recipient-details"></div>
 
 
-<h1>{{recipient.r_name}}</h1>
-<div class="sched_events" >
-<h2>Events</h2>
+
 <ul>
     {% if session.get('user_email') %}
         {% for event in recipient.events %}
@@ -90,5 +88,6 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-<script src="../static/js/recipientProfile.jsx" type="text/jsx"></script>
+<script src="/static/js/eventDetails.jsx" type="text/jsx"></script>
+<script src="/static/js/recipientProfile.jsx" type="text/jsx"></script>
 {% endblock body %}
