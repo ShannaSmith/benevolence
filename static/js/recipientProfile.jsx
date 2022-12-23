@@ -7,7 +7,7 @@ function RecipientDetails(props) {
     const eventsList = [];
     // VS CODE didn't like "event" , so used occassion
     for (const occassion of events){
-        eventsList.push(<EventDetails eventObj = {occassion} key = {occassion.event_id}></EventDetails>)
+        eventsList.push(<EventDetails eventObj={occassion} key={occassion.event_id} recipientObj={recipient}></EventDetails>)
     }
     return (
         <>
@@ -15,7 +15,7 @@ function RecipientDetails(props) {
                 <a href="/logout">Logout</a>
                 </div>
                 <h1>{recipient.r_name}</h1>
-                <div class="sched_events" >
+                <div className="sched_events" >
                 <h2>Events</h2>
             </div>
             <div>

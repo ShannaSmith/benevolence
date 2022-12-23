@@ -348,7 +348,7 @@ def update_note():
     except HttpError as error:
         print('An error occurred: %s' % error)  
         flash(f" Error content update to Google calendar was unsuccessful")
-    return redirect(f"/recipients_profile/{recipient.recipient_id}")
+    return jsonify('successfully saved note')
 
     # Delete Recipient
 @app.route("/remove_recipient/<recipient_id>",methods=["POST"] )
