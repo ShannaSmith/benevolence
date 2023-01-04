@@ -1,4 +1,4 @@
-// alert('eventDetails is connected')
+ alert('eventDetails is connected')
 function EventDetails(props){
     console.log(props);
     const {eventObj, recipientObj} = props;
@@ -11,7 +11,7 @@ if (eventObj.note){
    noteForm = <UpdateNote note={eventObj.note} recipientId={recipientObj.recipient_id}/>
 
 }else{
-   noteForm = <p>create note form coming soon</p>
+   noteForm = <CreateNote recipientId={recipientObj.recipient_id} eventObj={eventObj}/>
 }
    return(
     <>

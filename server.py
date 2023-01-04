@@ -249,11 +249,12 @@ def create_new_note(event_id):
     """create new note for event"""
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
-        flash('You moust be logged in to create a note')
-        return redirect("/")
+        return jsonify('You must be logged in to create a note')
+        
     else:
         user = crud.get_user_by_email(logged_in_email)
-        content = request.form.get("note")
+        content = request.json.get("note")
+        print('%' * 40, content)
         event = crud.get_event_by_id(event_id)
         note = crud.create_note(event, content)
         event_name = event.event_name
@@ -261,10 +262,8 @@ def create_new_note(event_id):
 
         db.session.add(note)
         db.session.commit()
-        flash(f"You added your notes for {event_name}!")
+        return jsonify(f"You added your notes for {event_name}!")
     
-        return redirect(f"/note/api/{event_id}")
-
 # add description to google API
 @app.route("/note/api/<event_id>")
 def add_google_description(event_id):
@@ -296,7 +295,7 @@ def add_google_description(event_id):
         event['description'] = content
         updated_event = service.events().update(calendarId='primary', eventId=event_gid, body=event).execute()
         #print the updated date
-        print(updated_event['description'])
+        # print(updated_event['description'])
     except HttpError as error:
         print('An error occurred: %s' % error)  
     return redirect(f"/recipients_profile/{recipient.recipient_id}")
