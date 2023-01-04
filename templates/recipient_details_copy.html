@@ -67,10 +67,6 @@
 {% endfor %}
 
 
-
-
-
-
 <h3>Add Events</h3>
 {% if session.get('user_email') %}
     <form action="/recipients/{{ recipient.recipient_id }}/events" id="n_event" method="POST">

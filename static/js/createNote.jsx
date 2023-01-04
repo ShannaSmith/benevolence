@@ -20,7 +20,7 @@ function CreateNote(props){
         }
     return(
     <>
-        <h1>Create your plan</h1>
+        <h3>Create your plan</h3>
         <label htmlFor="note">Create your plan here</label>
         <input type="textarea" name="note" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}} />
         <br/>

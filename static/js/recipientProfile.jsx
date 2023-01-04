@@ -2,12 +2,16 @@
 // TODO create component for event details
 
 function RecipientDetails(props) {
-    const {recipient, events} = props;
+    const {recipient, events, prompts} = props;
     // TODO build list events to render in recipient details
     const eventsList = [];
     // VS CODE didn't like "event" , so used occassion
     for (const occassion of events){
         eventsList.push(<EventDetails eventObj={occassion} key={occassion.event_id} recipientObj={recipient}></EventDetails>)
+    }
+    const likesList = [];
+    for (const prompt of prompts){
+        likesList.push(<CreateLikes prompts={prompt.prompt_name} recipient_id={recipient.recipient_id}/> )
     }
     return (
         <>
@@ -19,7 +23,14 @@ function RecipientDetails(props) {
                 <h2>Events</h2>
             </div>
             <div>
+            <h2>Their Favorite Things</h2>
+                {likesList} 
+            </div>
+            <div>
                 {eventsList}
+            </div>
+            <div>
+                <CreateEvent recipient_id={recipient.recipient_id}/>
             </div>
         </>
     );

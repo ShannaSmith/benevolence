@@ -137,11 +137,10 @@ def create_event(recipient_id):
     """create events"""
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
-        flash("you must log in to add an event")
-        return redirect("/")
+        return jsonify("you must log in to add an event")
     else:
-        event_name = request.form.get("event_name")
-        event_date = request.form.get("event_date")
+        event_name = request.json.get("event_name")
+        event_date = request.json.get("event_date")
         recipient = crud.get_recipient_by_id(recipient_id)
         print('!' * 40)
         print(event_date)
@@ -177,13 +176,15 @@ def create_event(recipient_id):
         print(event)
     except HttpError as error:
         print('An error occurred: %s' % error)
+        return jsonify('An error occurred: %s' % error)
+
     event = crud.create_event(recipient, event_name, event_date, event_gid)
 
     db.session.add(event)
     db.session.commit()
-    flash(f"You have added {event_name} to this recipient")
+    return jsonify(f"You have added {event_name} to this recipient")
 
-    return redirect(f"/recipients_profile/{recipient.recipient_id}")
+    # return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 
 # recipient detail page
@@ -294,17 +295,17 @@ def add_google_description(event_id):
         print(event)
         event['description'] = content
         updated_event = service.events().update(calendarId='primary', eventId=event_gid, body=event).execute()
-        #print the updated date
-        # print(updated_event['description'])
+        print('the updated date')
+        print(updated_event['description'])
     except HttpError as error:
         print('An error occurred: %s' % error)  
     return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 # Edit date format for Jinja templates
-@app.template_filter('datetimeformat')
-def datetimeformat(value, format='%B %d, %Y'):
-    """change date format"""
-    return value.strftime(format)
+# @app.template_filter('datetimeformat')
+# def datetimeformat(value, format='%B %d, %Y'):
+#     """change date format"""
+#     return value.strftime(format)
 
 # Update Note content
 @app.route("/update_note", methods=["POST"])
