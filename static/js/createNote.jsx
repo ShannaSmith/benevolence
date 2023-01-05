@@ -1,4 +1,4 @@
-alert('createNote is connected :~)')
+// alert('createNote is connected :~)')
 function CreateNote(props){
     const [noteText, setNoteText] = React.useState("")
 

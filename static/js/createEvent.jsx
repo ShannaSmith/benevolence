@@ -1,4 +1,4 @@
-alert('createEvent is connected ;~)')
+// alert('createEvent is connected ;~)')
 function CreateEvent(props){
     const [eventText, setEventText ] = React.useState("");
     const [eventDate, setEventDate] = React.useState("");

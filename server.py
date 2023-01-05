@@ -119,8 +119,8 @@ def create_likes(recipient_id):
         flash("You must log in to add an like.")
         return redirect('/')
     
-    prompt_id = request.form.get("prompt_id")
-    user_answer = request.form.get("prompt_reply")
+    prompt_id = request.json.get("prompt_id")
+    user_answer = request.json.get("prompt_reply")
     
     user = crud.get_user_by_email(logged_in_email)
     recipient = crud.get_recipient_by_id(recipient_id)
@@ -129,8 +129,8 @@ def create_likes(recipient_id):
     
     db.session.add(like)
     db.session.commit()
-    flash(f"You have added {user_answer} to this recipient")
-    return redirect(f"/recipients_profile/{recipient.recipient_id}")
+    return jsonify(f"You have added {user_answer} to this recipient")
+    # return redirect(f"/recipients_profile/{recipient.recipient_id}")
 # create new event
 @app.route("/recipients/<recipient_id>/events", methods=["POST"])
 def create_event(recipient_id):
@@ -208,6 +208,7 @@ def show_recipient(recipient_id):
     # convert recipient in prompt into dictionaries so they can be serialized
     data={'user_email':session.get('user_email')}
     data['recipient']={'recipient_id':recipient_id, 'r_name':recipient.r_name}
+    
     events_data =[]
     for event in recipient.events:
         note_data = None
@@ -222,6 +223,12 @@ def show_recipient(recipient_id):
         prompt_data = {'prompt_id':prompt.prompt_id, 'prompt_name':prompt.prompt_name}
         prompts_data.append(prompt_data)
     data['prompts'] = prompts_data
+
+    likes_data =[]
+    for like in recipient.likes:
+        like_data = {'like_id':like.like_id, 'like_name':like.like_name, 'recipient_id':like.recipient_id, 'prompt_id':like.prompt_id}
+        likes_data.append(like_data)
+    data['likes'] = likes_data
 
     return jsonify(data)
 

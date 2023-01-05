@@ -1,4 +1,4 @@
-alert('updateNote is connected :-)')
+// alert('updateNote is connected :-)')
 function UpdateNote(props){
     const [noteText , setNoteText] = React.useState(props.note.content)
 

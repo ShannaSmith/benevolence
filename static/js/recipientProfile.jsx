@@ -2,16 +2,23 @@
 // TODO create component for event details
 
 function RecipientDetails(props) {
-    const {recipient, events, prompts} = props;
+    const {recipient, events, prompts, likes} = props;
     // TODO build list events to render in recipient details
+    console.log('props printout>>>>>>>>',props)
     const eventsList = [];
     // VS CODE didn't like "event" , so used occassion
     for (const occassion of events){
         eventsList.push(<EventDetails eventObj={occassion} key={occassion.event_id} recipientObj={recipient}></EventDetails>)
     }
+    const promptsList = [];
+    for  (const prompt of prompts){
+        promptsList.push(<CreateLike prompt={prompt} recipient_id={recipient.recipient_id}/> )
+    }
     const likesList = [];
-    for (const prompt of prompts){
-        likesList.push(<CreateLikes prompts={prompt.prompt_name} recipient_id={recipient.recipient_id}/> )
+    for (const like of likes){
+        likesList.push(<div>
+            {like.like_name}
+        </div>)
     }
     return (
         <>
@@ -27,6 +34,10 @@ function RecipientDetails(props) {
                 {likesList} 
             </div>
             <div>
+                <h3>Add Interest</h3>
+                {promptsList}
+            </div>
+            <div>
                 {eventsList}
             </div>
             <div>
@@ -39,11 +50,13 @@ fetch(`/api/recipients_profile/${recipientId}`)
 .then(response => response.json())
 .then(responseJson =>{
     console.log(responseJson);
-    const {recipient, events} = responseJson;
+    const {recipient, events, prompts,likes} = responseJson;
     ReactDOM.render(
         <RecipientDetails 
             recipient = {recipient}
             events = {events}
+            prompts = {prompts}
+            likes = {likes}
         />, 
         document.querySelector('#recipient-details')
     );

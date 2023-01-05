@@ -1,4 +1,4 @@
- alert('eventDetails is connected')
+//  alert('eventDetails is connected')
 function EventDetails(props){
     console.log(props);
     const {eventObj, recipientObj} = props;

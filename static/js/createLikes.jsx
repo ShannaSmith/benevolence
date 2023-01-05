@@ -1,14 +1,13 @@
-alert('createLikes is :-)')
+// alert('createLikes is :-)')
 function CreateLike(props){
     const [like, setLikeText] = React.useState("");
-    const [prompt_id, setPromptID] = React.useState("");
-    const [user_answer, setUserAnswer] = React.useState("");
-
+    // const [user_answer, setUserAnswer] = React.useState("");
+console.log('print out of props.prompt>>>>>>>>>>', props.prompt)
     function handleSubmit(evt){
         console.log('New like>>>>>>>>>>', like);
         console.log('prompt_id>>>>>>>>>>>', prompt_id);
         const data = {
-            promptId:prompt_id,
+            promptId:props.prompt.prompt_id,
             userAnswer:user_answer,
             like:like
         };
@@ -27,7 +26,13 @@ function CreateLike(props){
     }
     return(
     <>
-    for 
-    </> 
+    
+    <div>       
+        <label htmlFor="prompt_reply" class="likes">{props.prompt.prompt_name}</label>
+        <input type="text" name="prompt_reply" value={like} onChange={(evt) =>{setLikeText(evt.target.value)}} />
+        <input type="hidden" name="prompt_id" value={props.prompt.prompt_id} />    
+        <input type="submit" value="Submit" onClick={handleSubmit}/>
+    </div>
+    </>
     );   
 }
