@@ -3,9 +3,6 @@ function EventDetails(props){
     console.log(props);
     const {eventObj, recipientObj} = props;
     
-//    const eventList = eventD.map((event) =>
-//    <li>{event}</li>
-//    );
 let noteForm ;
 if (eventObj.note){
    noteForm = <UpdateNote note={eventObj.note} recipientId={recipientObj.recipient_id}/>

@@ -12,12 +12,12 @@ function RecipientDetails(props) {
     }
     const promptsList = [];
     for  (const prompt of prompts){
-        promptsList.push(<CreateLike prompt={prompt} recipient_id={recipient.recipient_id}/> )
+        promptsList.push(<CreateLike prompt={prompt} key={prompt.prompt_id} recipient_id={recipient.recipient_id}/>)
     }
     const likesList = [];
     for (const like of likes){
-        likesList.push(<div>
-            {like.like_name}
+        likesList.push(<div key={like.like_id}>
+            {like.like_name} 
         </div>)
     }
     return (

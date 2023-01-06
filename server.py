@@ -62,6 +62,7 @@ def process_login():
         return redirect("/")
     else:
         session["user_email"] = user.email
+        session["user_id"] = user.user_id
         flash(f"Welcome back, {user.fname}!")
     return redirect(f"/recipients/{user.user_id}")
 
@@ -117,10 +118,10 @@ def create_likes(recipient_id):
     
     if logged_in_email is None:
         flash("You must log in to add an like.")
-        return redirect('/')
+        return jsonify(f"You have to log in")
     
     prompt_id = request.json.get("prompt_id")
-    user_answer = request.json.get("prompt_reply")
+    user_answer = request.json.get("user_answer") #<<<<needs to match the javascript not form
     
     user = crud.get_user_by_email(logged_in_email)
     recipient = crud.get_recipient_by_id(recipient_id)
@@ -356,7 +357,7 @@ def update_note():
         print('An error occurred: %s' % error)  
         flash(f" Error content update to Google calendar was unsuccessful")
     return jsonify('successfully saved note')
-
+#TODO add likes and prompts to delete recipient route
     # Delete Recipient
 @app.route("/remove_recipient/<recipient_id>",methods=["POST"] )
 def recipient_delete(recipient_id):
@@ -366,13 +367,16 @@ def recipient_delete(recipient_id):
     print(recipient_id)
     recipient = crud.get_recipient_by_id(recipient_id)
     events = crud.get_all_events(recipient_id)
-    
+    likes =recipient.likes
     print(events)
     for event in events:
         event_id = event.event_id
         note = crud.get_all_notes(event_id)
         db.session.delete(note)
         db.session.delete(event)
+    for like in likes:
+        db.session.delete(like)
+    
     db.session.delete(recipient)
     db.session.commit()
     return {"status":"Success"}
