@@ -67,7 +67,7 @@ def get_all_notes(event_id):
 def get_event_gid(event_id):
     event = Event.query.filter(Event.event_id == event_id).first()
     return event.event_gid
-# TODO Figure out how to get all prompts for a recipient via likes for delete function
+    
 def get_all_prompts():
     return  Prompt.query.all()
 

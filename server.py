@@ -131,7 +131,7 @@ def create_likes(recipient_id):
     db.session.add(like)
     db.session.commit()
     return jsonify(f"You have added {user_answer} to this recipient")
-    # return redirect(f"/recipients_profile/{recipient.recipient_id}")
+
 # create new event
 @app.route("/recipients/<recipient_id>/events", methods=["POST"])
 def create_event(recipient_id):
@@ -184,9 +184,6 @@ def create_event(recipient_id):
     db.session.add(event)
     db.session.commit()
     return jsonify(f"You have added {event_name} to this recipient")
-
-    # return redirect(f"/recipients_profile/{recipient.recipient_id}")
-
 
 # recipient detail page
 @app.route("/recipients_profile/<recipient_id>")
@@ -322,23 +319,15 @@ def update_note():
     note_id = int(request.json["note_id"])
 
     note = crud.get_note_by_id(note_id)
-    print('^' * 40)
-    print(note)
     event_id=note.event_id
     event = crud.get_event_by_id(event_id)
-    print('!' * 40)
-    print(event)
     recipient_Id = event.recipient.recipient_id
     recipient = crud.get_recipient_by_id(recipient_Id)
-    print('!' * 40)
-    print(recipient)
     update_content = request.json["update_content"]
     crud.update_note(note_id, update_content)
     db.session.commit()
     flash(f"You have succesfully updated this note in the database")
     content = event.note.content
-    print('&'*40)
-    print(content)
     event_gid = crud.get_event_gid(event_id)
     creds = connect_google_API()
     try:
@@ -346,8 +335,6 @@ def update_note():
         service = build('calendar', 'v3', credentials=creds)
         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
         event = service.events().get(calendarId='primary', eventId= event_gid).execute()
-        print('!'*40)
-        print(event)
         event['description'] = content
         updated_event = service.events().update(calendarId='primary', eventId=event_gid, body=event).execute()
         #print the updated date
@@ -357,7 +344,6 @@ def update_note():
         print('An error occurred: %s' % error)  
         flash(f" Error content update to Google calendar was unsuccessful")
     return jsonify('successfully saved note')
-#TODO add likes and prompts to delete recipient route
     # Delete Recipient
 @app.route("/remove_recipient/<recipient_id>",methods=["POST"] )
 def recipient_delete(recipient_id):

@@ -1,7 +1,8 @@
 // alert('updateNote is connected :-)')
+
 function UpdateNote(props){
     const [noteText , setNoteText] = React.useState(props.note.content)
-
+    const [showForm, setShowForm] = React.useState(false);
     function handleSubmit(evt){
         const data = {
             note_id: props.note.note_id,
@@ -17,19 +18,25 @@ function UpdateNote(props){
         .then(result => result.json())
         .then(result =>{
             // console.log(result)
-            window.location.href=`/recipients_profile/${props.recipientId}`
+            window.location.reload()
         })
     }
-
+    function handleUpdateNote(evt){
+       setShowForm(true);
+    }
     return(
     <>
-    
+        <input type="submit" onClick={handleUpdateNote} value="update plan" />
+        { 
+        showForm && <div>
         <h1>update note</h1>
         <label htmlFor="note">Update Your plan here</label>
         <input type="textarea"  name="note" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}} />
         <br/>
         <br/>
         <input type="submit" onClick={handleSubmit} value="Submit"/>
-    </>
+        </div> }
+        
+        </>
     );
 }
