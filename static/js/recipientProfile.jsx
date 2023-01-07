@@ -22,21 +22,20 @@ function RecipientDetails(props) {
             <div id="log-out">
                 <a href="/logout">Logout</a>
                 </div>
-                <h1>{recipient.r_name}</h1>
+                <h2>{recipient.r_name}</h2>
                 <div className="sched_events" >
-                <h2>Events</h2>
-            </div>
+                <h3>Events</h3>
+                {eventsList}
+                 </div>
             <div>
-            <h2>Their Favorite Things</h2>
+            <h3>Their Favorite Things</h3>
                 {likesList} 
             </div>
             <div>
                 <h3>Add Interest</h3>
                 {promptsList}
             </div>
-            <div>
-                {eventsList}
-            </div>
+           
             <div>
                 <CreateEvent recipient_id={recipient.recipient_id}/>
             </div>

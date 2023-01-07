@@ -16,19 +16,19 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#"></a>
+  <img src="/static/images/Brown Sun Line Burst Minimalist Coaching Logo.png" width="40" height="40" class="d-inline-block align-top" alt="">  Benevolence
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  <div class="collapse navbar-collapse nav justify-content-end" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/">Home <span class="sr-only"></span></a>
       <!-- put recipients in if statement for login -->
       {%if "user_id" in session%} 
-      <a class="nav-item nav-link" href="/recipients/{{session['user_id']}}">recipients</a>
+      <a class="nav-item nav-link" href="/recipients/{{session['user_id']}}">Framily<span class="sr-only"></span></a>
       {%endif %}
-      <a class="nav-item nav-link" href="/logout">Logout</a>
-      <a class="nav-item nav-link disabled" href="#">Disabled</a>
+      <a class="nav-item nav-link active" href="/logout">Logout</a>
     </div>
   </div>
 </nav>

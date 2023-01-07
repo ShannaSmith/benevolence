@@ -236,7 +236,7 @@ def  add_recipient(user_id):
     """create new Recipient"""
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
-        flash("You must log in to add a recipient")
+        flash("You must log in to add a framily member")
         return redirect("/")
     else:
         user = crud.get_user_by_id(user_id)
@@ -344,6 +344,7 @@ def update_note():
         print('An error occurred: %s' % error)  
         flash(f" Error content update to Google calendar was unsuccessful")
     return jsonify('successfully saved note')
+   
     # Delete Recipient
 @app.route("/remove_recipient/<recipient_id>",methods=["POST"] )
 def recipient_delete(recipient_id):

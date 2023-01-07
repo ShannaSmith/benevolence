@@ -3,7 +3,7 @@ endblock title %} {% block body %}
 <div id="log-out">
   <a href="/logout">Logout</a>
 </div>
-<h1>All Recipients</h1>
+<h2>Framily members</h2>
 <ul>
   {% for recipient in recipients %}
   <li>
@@ -13,7 +13,7 @@ endblock title %} {% block body %}
     >
       {{recipient.r_name}}
     </a>
-    <br />
+</br>
     <button
       class="remove_recipient"
      
@@ -23,16 +23,17 @@ endblock title %} {% block body %}
       Delete
     </button>
   </li>
+</br>
   {% endfor%}
 </ul>
-<h3>Add Recipient</h3>
+<h3>Add framily member</h3>
 {% if session.get('user_email')%}
 <form action="/recipients/new/{{user.user_id}}" method="POST">
-  <label for="new_r_name">Enter recipient's first and last name.</label>
+  <label for="new_r_name">Enter their first and last name.</label>
   <input type="text" id="r_name" name="new_r_name" />
   <br />
   <br />
-  <input type="submit" value="Submit" />
+  <input type="submit" value="Add member" />
 </form>
 
 {% endif %}
