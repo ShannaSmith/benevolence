@@ -307,10 +307,10 @@ def add_google_description(event_id):
     return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 # Edit date format for Jinja templates
-# @app.template_filter('datetimeformat')
-# def datetimeformat(value, format='%B %d, %Y'):
-#     """change date format"""
-#     return value.strftime(format)
+@app.template_filter('datetimeformat')
+def datetimeformat(value, format='%B %d, %Y'):
+    """change date format"""
+    return value.strftime(format)
 
 # Update Note content
 @app.route("/update_note", methods=["POST"])

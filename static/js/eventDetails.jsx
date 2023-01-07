@@ -1,9 +1,11 @@
 //  alert('eventDetails is connected')
+
 function EventDetails(props){
     console.log(props);
     const {eventObj, recipientObj} = props;
-    
-let noteForm ;
+    const date = moment(eventObj.event_date);
+    const newDate = date.format('dddd, Do MMM YYYY')
+    let noteForm ;
     function handleDeleteEvent(evt){
         fetch(`/remove_event/${props.eventObj.event_id}`,{
        method:"POST",
@@ -27,7 +29,7 @@ if (eventObj.note){
    return(
     <>
     <h2>{eventObj.event_name}</h2>
-    <h2>{eventObj.event_date}</h2>
+    <h2>Start preparing for this event on: {newDate}</h2>
     <button onClick={() => handleDeleteEvent(eventObj.event_id)}>remove event</button>
     <h2>{eventObj.note ? eventObj.note.content: null}</h2>
     {noteForm}
