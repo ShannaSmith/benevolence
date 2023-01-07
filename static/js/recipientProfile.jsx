@@ -1,9 +1,6 @@
 // alert('recipientProfile is connected!')
-// TODO create component for event details
-
 function RecipientDetails(props) {
     const {recipient, events, prompts, likes} = props;
-    // TODO build list events to render in recipient details
     console.log('props printout>>>>>>>>',props)
     const eventsList = [];
     // VS CODE didn't like "event" , so used occassion

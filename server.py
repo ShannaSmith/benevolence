@@ -1,4 +1,4 @@
-"""Server for movie benevolence app."""
+"""Server for benevolence app."""
 from __future__ import print_function
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 
@@ -366,6 +366,19 @@ def recipient_delete(recipient_id):
     db.session.delete(recipient)
     db.session.commit()
     return {"status":"Success"}
+
+# Delete Event
+@app.route("/remove_event/<event_id>", methods=["POST"])
+def event_delete(event_id):
+    """delete event"""
+   
+    event = crud.get_event_by_id(event_id)
+    note = crud.get_all_notes(event_id)
+    db.session.delete(note)
+    db.session.delete(event)
+    db.session.commit()
+    return{"status":"Success"}
+
 
    
 

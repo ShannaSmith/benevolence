@@ -2,7 +2,6 @@
 function CreateEvent(props){
     const [eventText, setEventText ] = React.useState("");
     const [eventDate, setEventDate] = React.useState("");
-
     function handleSubmit(evt){
         console.log('eventText>>>>>>>>>>>>>>>', eventText);
         console.log('eventDate>>>>>>>>>>>>>>>', eventDate);

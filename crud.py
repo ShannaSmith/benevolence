@@ -49,10 +49,6 @@ def get_event_by_id(event_id):
 def get_note_by_id(note_id):
     return Note.query.filter(Note.note_id == note_id).first()
 
-def delete_recipient(recipient_id):
-    """delete recipient by recipient id"""
-    pass
-
 def update_note(note_id, update_content):
     """update a note given note_id and the updated content"""
     note = Note.query.get(note_id)
@@ -67,13 +63,15 @@ def get_all_notes(event_id):
 def get_event_gid(event_id):
     event = Event.query.filter(Event.event_id == event_id).first()
     return event.event_gid
-    
+
 def get_all_prompts():
     return  Prompt.query.all()
 
 def get_all_likes(recipient_id):
     return Like.query.filter(Like.recipient_id == recipient_id).all()
 
+
+ 
 
 
 
