@@ -4,7 +4,7 @@ function EventDetails(props){
     console.log(props);
     const {eventObj, recipientObj} = props;
     const date = moment(eventObj.event_date);
-    const newDate = date.format('dddd, Do MMM YYYY')
+    const newDate = date.format('dddd, MMM Do YYYY')
     let noteForm ;
     function handleDeleteEvent(evt){
         fetch(`/remove_event/${props.eventObj.event_id}`,{
