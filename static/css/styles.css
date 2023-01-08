@@ -7,4 +7,6 @@ ul{
 .navbar-nav .active .nav-item .nav-link .link-secondary .sr-only a{
     color:blue !important;
 }
+.hide{
+    display:none;
 }

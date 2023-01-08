@@ -2,13 +2,13 @@
 {% block title %}Benevolence Home{% endblock title %}
 
 {% block body %}
- 
+ <body>
         <h2>Greetings Benevolent One!</h2>
         
         
 
         <h4>Create Account</h4>
-        <form action="/users/new" method="POST">
+        <form action="/users/new" id="create-acct" class="hide" method="POST">
         <p> 
             First name<input type="text" name=fname>
         </p>
@@ -22,11 +22,14 @@
             Password<input type="password" name="password">
         </p>
         <p>
-            <input type="submit">
+            <button id="submt-acct" onClick="showBtn()">submit </button>
         </p>
         </form>
+        <p>
+            <button id="new-acct"  onClick="showCreateAcct()">create account </button>
+        </p>
         <h4>Log In</h4>
-        <form action="/login" method="POST">
+        <form action="/login"  method="POST">
             <P>
                 Email <input type="text" name="email">
             </P>
@@ -34,8 +37,10 @@
                 Password <input type="password" name="password">
             </p>
             <p>
-                <input type="submit">         
+                <button > submit</button>       
              </p>
         </form>
+    <script src="../static/js/index.js"></script>
+    </body>
         {% endblock body %}
    
