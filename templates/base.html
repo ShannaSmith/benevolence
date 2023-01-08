@@ -22,13 +22,15 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse nav justify-content-end" id="navbarNavAltMarkup">
+    {%if "user_id" in session %}
+    <a class="nav-item nav-link link-secondary">Welcome,  {{session.user_fname}}<span class="sr-only"></span></a>
+   {%endif%}
     <div class="navbar-nav">
       <a class="nav-item nav-link link-secondary" href="/">Home <span class="sr-only"></span></a>
       <!-- put recipients in if statement for login -->
       {%if "user_id" in session%} 
       <a class="nav-item nav-link link-secondary" href="/recipients/{{session['user_id']}}">Framily<span class="sr-only"></span></a>
       <a class="nav-item nav-link link-secondary" href="/logout">Logout</a>
-      <a class="nav-item nav-link link-secondary profile-name">Welcome {{user.fname}}<span class="sr-only"></span></a>
       {%endif %}
       
     </div>
@@ -42,6 +44,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+    <script src="/static/js/nav.js"></script>
     {% endblock %}
 </body>
 {% block after_body %}{% endblock %}

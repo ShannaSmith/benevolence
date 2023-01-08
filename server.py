@@ -63,7 +63,7 @@ def process_login():
     else:
         session["user_email"] = user.email
         session["user_id"] = user.user_id
-        session["fname"] = user.fname
+        session["user_fname"] = user.fname
         flash(f"Welcome back, {user.fname}!")
     return redirect(f"/recipients/{user.user_id}")
 
@@ -71,7 +71,9 @@ def process_login():
 @app.route("/logout")
 def logout_user():
     """process user log out"""
-    session.pop('user', None)
+    session.pop("user_fname", None)
+    session.pop('user_email', None)
+    session.pop("user_id", None)
     return redirect("/")
 
 #Google API helper function
