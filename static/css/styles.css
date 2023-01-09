@@ -4,9 +4,12 @@
 ul{
     list-style-type: none;
 }
-.navbar-nav .active .nav-item .nav-link .link-secondary .sr-only a{
+.active, .nav-item.nav-link.link-secondary.be-link:hover{
     color:blue !important;
 }
 .hide{
     display:none;
+}
+.active {
+    color: green;
 }
