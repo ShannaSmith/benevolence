@@ -378,8 +378,11 @@ def event_delete(event_id):
    
     event = crud.get_event_by_id(event_id)
     note = crud.get_all_notes(event_id)
-    db.session.delete(note)
-    db.session.delete(event)
+    if note is None:
+        db.session.delete(event)
+    else:
+        db.session.delete(note)
+        db.session.delete(event)
     db.session.commit()
     return{"status":"Success"}
 

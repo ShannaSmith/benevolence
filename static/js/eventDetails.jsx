@@ -3,6 +3,8 @@
 function EventDetails(props){
     console.log(props);
     const {eventObj, recipientObj} = props;
+    const [noteContent, setNoteContent] = React.useState(eventObj.note ? eventObj.note.content: null)
+    const [newNoteContent, setNewNoteContent] = React.useState(eventObj.note ? eventObj.note.content: null)
     const date = moment(eventObj.event_date);
     const newDate = date.format('dddd, MMM Do YYYY')
     let noteForm ;
@@ -20,18 +22,24 @@ function EventDetails(props){
             window.location.reload()
         })
     }
+   function handleUpdateNote(updatedNoteText){
+    setNoteContent(updatedNoteText)
+   }
+   function handleNewNote(newNoteText){
+    setNewNoteContent(newNoteText)
+   }
 if (eventObj.note){
-   noteForm = <UpdateNote note={eventObj.note} recipientId={recipientObj.recipient_id}/>
+   noteForm = <UpdateNote note={eventObj.note} recipientId={recipientObj.recipient_id} handleUpdateNote={handleUpdateNote}/>
 
 }else{
-   noteForm = <CreateNote recipientId={recipientObj.recipient_id} eventObj={eventObj}/>
+   noteForm = <CreateNote recipientId={recipientObj.recipient_id} eventObj={eventObj} handleNewNote={handleNewNote}/>
 }
    return(
     <>
     <h2>{eventObj.event_name}</h2>
     <h2>Start preparing for this event on: {newDate}</h2>
     <button onClick={() => handleDeleteEvent(eventObj.event_id)}>remove event</button>
-    <h2>{eventObj.note ? eventObj.note.content: null}</h2>
+    <h2>{noteContent}</h2>
     {noteForm}
     </>
     );

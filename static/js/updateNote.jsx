@@ -17,16 +17,16 @@ function UpdateNote(props){
         })
         .then(result => result.json())
         .then(result =>{
-            // console.log(result)
-            window.location.reload()
+            props.handleUpdateNote(noteText)
+            setShowForm(false)
         })
     }
-    function handleUpdateNote(evt){
+    function handleShowForm(evt){
        setShowForm(true);
     }
     return(
     <>
-        <input type="submit" onClick={handleUpdateNote} value="update plan" />
+        <input type="submit" onClick={handleShowForm} value="update plan" />
         { 
         showForm && <div>
         <h1>update note</h1>

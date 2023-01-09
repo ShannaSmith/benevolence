@@ -3,12 +3,14 @@ const acctBtn = document.getElementById('new-acct');
 
 function showCreateAcct (evt) {
     const form = document.getElementById('create-acct');
-    if (form.style.display === 'none'){
+    console.log('print form>>>>>', form)
+    // if (form.style.display === 'none'){
         form.style.display = 'block';
-    }else{
-        form.style.display = 'none';
+        form.classList.remove('hidden');
+    // }else{
+        // form.style.display = 'none';
         acctBtn.classList.add("hidden"); 
-    }
+    // }
     
 };
 function showBtn(evt){
