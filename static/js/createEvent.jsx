@@ -20,8 +20,8 @@ function CreateEvent(props){
         .then(result =>{
             console.log(`Ajax call for create event returned this: ${result}`)
             window.location.reload()
+            
         })
-
     }
     return(
     <>

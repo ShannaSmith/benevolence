@@ -4,7 +4,8 @@ function EventDetails(props){
     console.log(props);
     const {eventObj, recipientObj} = props;
     const [noteContent, setNoteContent] = React.useState(eventObj.note ? eventObj.note.content: null)
-    const [newNoteContent, setNewNoteContent] = React.useState(eventObj.note ? eventObj.note.content: null)
+    // const [eventText, setEventText] = React.useState(eventObj.eventText);
+    // const [eventDate, setEventDate] = React.useState(eventObj.eventDate);
     const date = moment(eventObj.event_date);
     const newDate = date.format('dddd, MMM Do YYYY')
     let noteForm ;
@@ -26,7 +27,7 @@ function EventDetails(props){
     setNoteContent(updatedNoteText)
    }
    function handleNewNote(newNoteText){
-    setNewNoteContent(newNoteText)
+    setNoteContent(newNoteText)
    }
 if (eventObj.note){
    noteForm = <UpdateNote note={eventObj.note} recipientId={recipientObj.recipient_id} handleUpdateNote={handleUpdateNote}/>

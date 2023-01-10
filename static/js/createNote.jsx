@@ -3,7 +3,6 @@ function CreateNote(props){
     const [noteText, setNoteText] = React.useState("")
     const [removeForm, setRemoveForm] =React.useState(true)
         function handleSubmit(evt){
-            const [showForm, setShowForm] = React.useState(false)
             console.log('noteText>>>>>>>>',noteText)
             const data = {note:noteText};
             fetch(`/note/new/${props.eventObj.event_id}`, {
@@ -18,7 +17,6 @@ function CreateNote(props){
                 console.log(`Ajax call for create Note returned this:${result}`)
                 // window.location.reload()
                 props.handleNewNote(noteText)
-                setShowForm(true);
                 setRemoveForm(false);
             })
         }

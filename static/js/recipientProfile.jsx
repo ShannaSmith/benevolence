@@ -25,6 +25,7 @@ function RecipientDetails(props) {
                 <h2>{recipient.r_name}</h2>
                 <div className="sched_events" >
                 <h3>Events</h3>
+                
                 {eventsList}
                  </div>
             <div>
@@ -42,6 +43,7 @@ function RecipientDetails(props) {
         </>
     );
 }
+
 fetch(`/api/recipients_profile/${recipientId}`)
 .then(response => response.json())
 .then(responseJson =>{
