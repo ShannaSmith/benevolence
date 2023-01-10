@@ -1,17 +1,11 @@
-
-const acctBtn = document.getElementById('new-acct');
+let acctBtn = document.getElementById('new-acct');
 
 function showCreateAcct (evt) {
     const form = document.getElementById('create-acct');
     console.log('print form>>>>>', form)
-    // if (form.style.display === 'none'){
         form.style.display = 'block';
         form.classList.remove('hidden');
-    // }else{
-        // form.style.display = 'none';
-        acctBtn.classList.add("hidden"); 
-    // }
-    
+        acctBtn.classList.add("hidden");     
 };
 function showBtn(evt){
     const btn = document.getElementById("new-acct");

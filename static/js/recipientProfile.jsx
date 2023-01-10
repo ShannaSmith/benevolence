@@ -1,12 +1,14 @@
 // alert('recipientProfile is connected!')
 function RecipientDetails(props) {
     const {recipient, events, prompts, likes} = props;
+
     console.log('props printout>>>>>>>>',props)
     const eventsList = [];
     // VS CODE didn't like "event" , so used occassion
     for (const occassion of events){
         eventsList.push(<EventDetails eventObj={occassion} key={occassion.event_id} recipientObj={recipient}></EventDetails>)
     }
+
     const promptsList = [];
     for  (const prompt of prompts){
         promptsList.push(<CreateLike prompt={prompt} key={prompt.prompt_id} recipient_id={recipient.recipient_id}/>)
@@ -38,7 +40,7 @@ function RecipientDetails(props) {
             </div>
            
             <div>
-                <CreateEvent recipient_id={recipient.recipient_id}/>
+                <CreateEvent recipient_id={recipient.recipient_id} />
             </div>
         </>
     );

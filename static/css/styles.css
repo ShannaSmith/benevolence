@@ -5,7 +5,7 @@ ul{
     list-style-type: none;
 }
 .active, .nav-item.nav-link.link-secondary.be-link:hover{
-    color:blue !important;
+    color:rgb(17,101,48) !important;
 }
 .hide{
     display:none;
@@ -15,4 +15,37 @@ header[role]
 .bi bi-box-arrow-right{
     padding-top: 40%;
     margin-top: 70%;
+}
+.jumbotron{
+    display: block;
+margin-left: auto;
+margin-right: auto;
+width:50%;
+}
+.bg{
+   display: flex;
+   justify-content: center;
+}
+#site-name{
+    display: flex;
+
+}
+.ca{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+.cab{
+    display:flex;
+    justify-content: flex-start;
+    flex-direction:row-reverse;
+
+}
+.LI{
+    display:flex;
+    align-items:flex-end;
+    flex-direction:column;
+}
+body{
+    background-image: linear-gradient(to right, rgb(251, 249, 219, 0), rgb(171, 179, 200, 1), rgb(187, 215, 206, 1), rgb(192,209,212,0));
 }

@@ -1,4 +1,5 @@
 // alert('createNote is connected :~)')
+
 function CreateNote(props){
     const [noteText, setNoteText] = React.useState("")
     const [removeForm, setRemoveForm] =React.useState(true)
@@ -17,8 +18,10 @@ function CreateNote(props){
                 console.log(`Ajax call for create Note returned this:${result}`)
                 // window.location.reload()
                 props.handleNewNote(noteText)
-                setRemoveForm(false);
+                // setRemoveForm(false);
+                
             })
+
         }
     return(
     <>

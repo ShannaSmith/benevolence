@@ -33,7 +33,7 @@ if (eventObj.note){
    noteForm = <UpdateNote note={eventObj.note} recipientId={recipientObj.recipient_id} handleUpdateNote={handleUpdateNote}/>
 
 }else{
-   noteForm = <CreateNote recipientId={recipientObj.recipient_id} eventObj={eventObj} handleNewNote={handleNewNote}/>
+   noteForm = <CreateNote recipientId={recipientObj.recipient_id} eventObj={eventObj} handleNewNote={handleNewNote} handleUpdateNote={handleUpdateNote} />
 }
    return(
     <>
