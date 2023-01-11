@@ -7,7 +7,8 @@ function CreateEvent(props){
         console.log('eventDate>>>>>>>>>>>>>>>', eventDate);
         const data = {
             event_name:eventText,
-            event_date:eventDate
+            event_date:eventDate,
+            event_id:""
         };
         fetch(`/recipients/${props.recipient_id}/events`, {
             method:"POST",
@@ -18,9 +19,11 @@ function CreateEvent(props){
         })
         .then(result => result.json())
         .then(result =>{
-            console.log(`Ajax call for create event returned this: ${result}`)
-            window.location.reload()
-            
+            console.log('Ajax call for create event returned this:', result)
+            // window.location.reload()
+            props.handleNewEvent(result)
+            setEventText('')
+            setEventDate('')
         })
     }
     return(

@@ -1,11 +1,11 @@
 // alert('updateNote is connected :-)')
 
 function UpdateNote(props){
-    const [noteText , setNoteText] = React.useState(props.note.content)
+    const [noteText , setNoteText] = React.useState(props.note)
     const [showForm, setShowForm] = React.useState(false);
     function handleSubmit(evt){
         const data = {
-            note_id: props.note.note_id,
+            note_id: props.noteId,
             update_content: noteText
         };
         fetch("/update_note", {

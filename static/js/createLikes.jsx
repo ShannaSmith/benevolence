@@ -31,11 +31,12 @@ console.log('print out of props.prompt>>>>>>>>>>', props.prompt)
     return(
     <>
     
-    <div>       
+    <div>   
+          
         <label htmlFor="prompt_reply" className="likes">{props.prompt.prompt_name}</label>
         <input type="text" name="prompt_reply" value={user_answer} onChange={(evt) =>{setUserAnswer(evt.target.value)}} />
         <input type="hidden" name="prompt_id" value={props.prompt.prompt_id} />    
-        <input type="submit" value="Submit" onClick={handleSubmit}/>
+        <input type="submit" value="Add interest" onClick={handleSubmit}/>
     </div>
     </>
     );   

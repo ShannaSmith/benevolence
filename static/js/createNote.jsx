@@ -17,8 +17,9 @@ function CreateNote(props){
             .then(result =>{
                 console.log(`Ajax call for create Note returned this:${result}`)
                 // window.location.reload()
-                props.handleNewNote(noteText)
-                // setRemoveForm(false);
+                console.log(' result>>>>>>', result)
+                props.handleNewNote(result.content, result.note_id)
+                setRemoveForm(false);
                 
             })
 

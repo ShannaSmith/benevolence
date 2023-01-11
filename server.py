@@ -133,7 +133,7 @@ def create_likes(recipient_id):
     
     db.session.add(like)
     db.session.commit()
-    return jsonify(f"You have added {user_answer} to this recipient")
+    return jsonify({'like_name':like.like_name} )
 
 # create new event
 @app.route("/recipients/<recipient_id>/events", methods=["POST"])
@@ -186,7 +186,7 @@ def create_event(recipient_id):
 
     db.session.add(event)
     db.session.commit()
-    return jsonify(f"You have added {event_name} to this recipient")
+    return jsonify({'event_id':event.event_id, 'event_name':event.event_name, 'event_date': event.event_date})
 
 # recipient detail page
 @app.route("/recipients_profile/<recipient_id>")
@@ -271,7 +271,7 @@ def create_new_note(event_id):
 
         db.session.add(note)
         db.session.commit()
-        return jsonify(f"You added your notes for {event_name}!")
+        return jsonify( {'note_id':note.note_id, 'content':note.content} )
     
 # add description to google API
 @app.route("/note/api/<event_id>")
@@ -378,10 +378,10 @@ def event_delete(event_id):
    
     event = crud.get_event_by_id(event_id)
     note = crud.get_all_notes(event_id)
-    if note is None:
+    if note != None:
+        db.session.delete(note)
         db.session.delete(event)
     else:
-        db.session.delete(note)
         db.session.delete(event)
     db.session.commit()
     return{"status":"Success"}

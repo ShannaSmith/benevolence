@@ -15,6 +15,8 @@ header[role]
 .bi bi-box-arrow-right{
     padding-top: 40%;
     margin-top: 70%;
+    color: white;
+}
 }
 .jumbotron{
     display: block;
@@ -25,27 +27,38 @@ width:50%;
 .bg{
    display: flex;
    justify-content: center;
+   color: white;
+}
 }
 #site-name{
     display: flex;
+    color:white;
 
 }
 .ca{
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
+    color:white;
 }
 .cab{
     display:flex;
     justify-content: flex-start;
     flex-direction:row-reverse;
-
+    color: white;
 }
+
 .LI{
     display:flex;
     align-items:flex-end;
     flex-direction:column;
+    color: white;
 }
-body{
-    background-image: linear-gradient(to right, rgb(251, 249, 219, 0), rgb(171, 179, 200, 1), rgb(187, 215, 206, 1), rgb(192,209,212,0));
+#homepage{
+    
+    background-color:rgb(133, 88, 111);
+    color:white;
+}
+.form-text{
+    color:white !important;
 }

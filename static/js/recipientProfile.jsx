@@ -1,14 +1,19 @@
 // alert('recipientProfile is connected!')
 function RecipientDetails(props) {
+    console.log('rendering recip profile>>>')
     const {recipient, events, prompts, likes} = props;
-
+    const [eventsState, setEventsState] = React.useState(events)
     console.log('props printout>>>>>>>>',props)
     const eventsList = [];
     // VS CODE didn't like "event" , so used occassion
-    for (const occassion of events){
-        eventsList.push(<EventDetails eventObj={occassion} key={occassion.event_id} recipientObj={recipient}></EventDetails>)
+    for (const occassion of eventsState){
+        console.log('occassionId>>>>', occassion.event_id)
+        eventsList.push(<EventDetails eventObj={occassion} key={occassion.event_id} recipientObj={recipient}/>)
     }
 
+    function handleNewEvent(newEvent){
+        setEventsState(existingEvents => [...existingEvents, newEvent])
+    }
     const promptsList = [];
     for  (const prompt of prompts){
         promptsList.push(<CreateLike prompt={prompt} key={prompt.prompt_id} recipient_id={recipient.recipient_id}/>)
@@ -35,12 +40,15 @@ function RecipientDetails(props) {
                 {likesList} 
             </div>
             <div>
-                <h3>Add Interest</h3>
+                
                 {promptsList}
             </div>
            
             <div>
-                <CreateEvent recipient_id={recipient.recipient_id} />
+                <CreateEvent recipient_id={recipient.recipient_id} handleNewEvent={handleNewEvent} />
+            </div>
+            <div>
+                {/* <CreateLike recipient_id={recipient.recipient_id} handleNewLike={handleNewLike}/> */}
             </div>
         </>
     );
