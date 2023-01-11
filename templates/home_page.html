@@ -1,55 +1,116 @@
-{% extends 'base.html' %}
-{% block title %}Benevolence Home{% endblock title %}
-
+{% extends 'base.html' %} {% block title %}Benevolence Home{% endblock title %}
 {% block body %}
- <body id="homepage">
-        
-        <div class="LI">
-            <form  action="/login"  method="POST">
-                <div class="form-group">
-                    <h4>Log In</h4>
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email"  name="email"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted form-text">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
-                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-outline-light">Submit</button>
-              </form>
-        </div>
-    
-        <div class="red">
-            <div class="bg ">
-              <img class="display-4"src="/static/images/benevolence-logo.png" class="img-fluid" alt="logo">
+<main id="homepage">
+  <div class="LI">
+    <form action="/login" id="login-frm" class="hidden" method="POST">
+      <div class="form-group lgin">        
+        <label for="exampleInputEmail1">Email address</label>
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Enter email"
+        />
+        <small id="emailHelp" class="form-text text-muted form-text"
+          >We'll never share your email with anyone else.</small
+        >
+      </div>
+      <div class="form-group lgin">
+        <label for="exampleInputPassword1">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          placeholder="Password"
+        />
+      </div>
+      <p>
+      <button type="submit" id="lgib" onClick="showLgInBtn()" class="btn btn-outline-light">
+        Login
+      </button>
+    </p>
+    </form>
+  </div>
+<div class="lib">
+  <button id="logIn" class="btn btn-outline-light" onClick="showLogIn()">
+    Login
+  </button>
+</div>
+  <div class="red">
+    <div class="bg">
+      <img
+        class="display-4"
+        src="/static/images/benevolence-logo.png"
+        class="img-fluid"
+        alt="logo"
+      />
+    </div>
+    <div class="ca" id="cr-acct-form">
+      <h4 id="cd-labl">Create Account</h4>
+      <form action="/users/new" id="create-acct" class="hidden" method="POST">
+        <div class="row">
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              name="fname"
+              placeholder="First name"
+            />
           </div>
-          <div class="ca" id="cr-acct-form">
-        <h4>Create Account</h4>
-        <form action="/users/new" id="create-acct" class="hidden" method="POST">
-            <p> 
-                First name<input type="text" name=fname>
-            </p>
-            <p>
-                Last name<input type="text" name="lname">
-            </p>
-            <p>
-                Email<input type="text" name="email">
-            </p>
-            <p>
-                Password<input type="password" name="password">
-            </p>
-            <p>
-                <button id="submt-acct" onClick="showBtn()">submit </button>
-            </p>
-        </form>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              name="lname"
+              placeholder="Last name"
+            />
+          </div>
         </div>
-        <div class="cab">
+        <div class="row">
+          <div class="col">
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              placeholder="Enter email"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="password"
+            />
+          </div>
+        </div>
         <p>
-            <button id="new-acct" class="btn btn-outline-light" onClick="showCreateAcct()">create account </button>
+          <button
+            id="submt-acct"
+            class="btn btn-outline-light"
+            onClick="showBtn()"
+          >
+            submit
+          </button>
         </p>
-       </div>
-    <script src="../static/js/index.js"></script>
-    </body>
-        {% endblock body %}
-   
+      </form>
+    </div>
+    <div class="cab">
+      <p>
+        <button
+          id="new-acct"
+          class="btn btn-outline-light"
+          onClick="showCreateAcct()"
+        >
+          create account
+        </button>
+      </p>
+    </div>
+  </div>
+</main>
+{% endblock body %} {% block after_body %}
+<script src="../static/js/index.js"></script>
+{% endblock after_body %}

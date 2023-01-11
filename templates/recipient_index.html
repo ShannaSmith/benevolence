@@ -13,17 +13,16 @@ endblock title %} {% block body %}
     >
       {{recipient.r_name}}
     </a>
-</br>
+    <br />
     <button
       class="remove_recipient"
-     
       id="remove_recipient_{{recipient.recipient_id}}"
       value="{{recipient.recipient_id}}"
     >
       Delete
     </button>
   </li>
-</br>
+  <br />
   {% endfor%}
 </ul>
 <h3>Add framily member</h3>
@@ -37,5 +36,8 @@ endblock title %} {% block body %}
 </form>
 
 {% endif %}
+
+{% endblock body %}{% block after_body %}
 <script src="../static/js/updateNotes.js"></script>
- {% endblock body %}
+<script src="../static/js/index.js"></script>
+{% endblock after_body %}

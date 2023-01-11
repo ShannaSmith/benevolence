@@ -3,7 +3,7 @@ let acctBtn = document.getElementById('new-acct');
 function showCreateAcct (evt) {
     const form = document.getElementById('create-acct');
     console.log('print form>>>>>', form)
-        form.style.visibility = 'block';
+        form.style.display = 'block';
         form.classList.remove('hidden');
         acctBtn.classList.add("hidden");     
 };
@@ -23,6 +23,18 @@ for (let i = 0; i < links.length; i++){
         links[i].classList.add('active')
     }
 }
-const createAcctFrm = document.getElementById("cr-acct-form");
+let logBtn = document.getElementById('logIn');
+function showLgInBtn(evt){
+    const btn = document.getElementById("logIn");
+    btn.classList.remove('hidden'); 
+}
+
+function showLogIn (evt) {
+    const form = document.getElementById("login-frm");
+    console.log('print form>>>>>', form)
+        form.style.display = 'block';
+        form.classList.remove('hidden');
+        logBtn.classList.add("hidden");     
+};
 
 

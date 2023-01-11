@@ -1,5 +1,5 @@
 .hidden{
-    display: none;
+    display: none !important;
 }
 ul{
     list-style-type: none;
@@ -53,6 +53,7 @@ width:50%;
     align-items:flex-end;
     flex-direction:column;
     color: white;
+    padding-right: 2%;
 }
 #homepage{
     
@@ -71,10 +72,10 @@ width:50%;
     align-content: stretch;
     justify-content: space-evenly;
     align-items: flex-end;
+    padding-right: 2%;
 }
 body{
-    margin-left: 5%;
-    margin-right: 5%;
+    margin: 0;
 }
 header{
     margin-left: 0% !important;
@@ -82,4 +83,42 @@ header{
 }
 #create-acct{
     display:grid;
+}
+#submt-acct{
+    margin-top: 1%;
+}
+.row>*{
+    padding-right: calc(var(--bs-gutter-x) * .1) !important;
+    padding-left: calc(var(--bs-gutter-x) * .1) !important;
+    margin-bottom: 1%;
+}
+.btn.btn-outline-light{
+    margin-top: 2% !important;
+}
+#new-acct{
+   position:relative !important;
+   left: -123% !important;
+}
+#cd-labl{
+    position:relative;
+    left: -8%;
+}
+#logIn{
+    position:relative;
+    left: 95%;
+}
+#login-frm{
+    display:flex;
+}
+.form-control{
+padding: 0.275rem 0.75rem;
+padding-top: 0.275rem;
+padding-right: 0.75rem;
+padding-bottom: 0.275rem;
+padding-left:0.75rem;
+margin:2% !important;
+
+}
+.lgin{
+    padding-top: 1rem !important;
 }
