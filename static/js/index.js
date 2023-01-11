@@ -3,13 +3,13 @@ let acctBtn = document.getElementById('new-acct');
 function showCreateAcct (evt) {
     const form = document.getElementById('create-acct');
     console.log('print form>>>>>', form)
-        form.style.display = 'block';
+        form.style.visibility = 'block';
         form.classList.remove('hidden');
         acctBtn.classList.add("hidden");     
 };
 function showBtn(evt){
     const btn = document.getElementById("new-acct");
-    btn.classList.remove('hidden');
+    btn.classList.remove('hidden'); //<<<<<may need to change to css visibilty
 };
 
 const navContainer = document.getElementById("navbarNavAltMarkup");
@@ -23,4 +23,6 @@ for (let i = 0; i < links.length; i++){
         links[i].classList.add('active')
     }
 }
+const createAcctFrm = document.getElementById("cr-acct-form");
+
 

@@ -260,40 +260,24 @@ def create_new_note(event_id):
     if logged_in_email is None:
         return jsonify('You must be logged in to create a note')
         
-    else:
-        user = crud.get_user_by_email(logged_in_email)
-        content = request.json.get("note")
-        print('%' * 40, content)
-        event = crud.get_event_by_id(event_id)
-        note = crud.create_note(event, content)
-        event_name = event.event_name
-        
-
-        db.session.add(note)
-        db.session.commit()
-        return jsonify( {'note_id':note.note_id, 'content':note.content} )
     
-# add description to google API
-@app.route("/note/api/<event_id>")
-def add_google_description(event_id):
-    """Add description to event on Google calendar"""
-    logged_in_email = session.get("user_email")
-    if logged_in_email is None:
-        flash("you must log in to add an event")
-        return redirect("/")
-    else:
-        user = crud.get_user_by_email(logged_in_email)  
-        event = crud.get_event_by_id(event_id) 
-        recipient_Id= event.recipient.recipient_id
-        recipient = crud.get_recipient_by_id(recipient_Id) 
-        note = event.note.note_id
-        print('^'*40)
-        print(note)
-        content = event.note.content
-        print('&'*40)
-        print(content)
-        event_gid = crud.get_event_gid(event_id)
-        creds = connect_google_API()
+    user = crud.get_user_by_email(logged_in_email)
+    event = crud.get_event_by_id(event_id)
+    
+    content = request.json.get("note")
+    print('%' * 40, content)
+    note = crud.create_note(event, content)
+    print('^'*40)
+    print(note)
+    db.session.add(note)
+    db.session.commit()
+    
+    event_name = event.event_name
+    recipient_Id= event.recipient.recipient_id
+    recipient = crud.get_recipient_by_id(recipient_Id) 
+    event_gid = crud.get_event_gid(event_id)
+    creds = connect_google_API()
+        
     try:
 
         service = build('calendar', 'v3', credentials=creds)
@@ -306,8 +290,45 @@ def add_google_description(event_id):
         print('the updated date')
         print(updated_event['description'])
     except HttpError as error:
-        print('An error occurred: %s' % error)  
-    return redirect(f"/recipients_profile/{recipient.recipient_id}")
+        return jsonify('An error occurred: %s' % error)  
+
+    return jsonify( {'note_id':note.note_id, 'content':note.content} )
+    
+# # add description to google API
+# @app.route("/note/api/<event_id>")
+# def add_google_description(event_id):
+#     """Add description to event on Google calendar"""
+#     logged_in_email = session.get("user_email")
+#     if logged_in_email is None:
+#         flash("you must log in to add an event")
+#         return redirect("/")
+#     else:
+#         user = crud.get_user_by_email(logged_in_email)  
+#         event = crud.get_event_by_id(event_id) 
+#         recipient_Id= event.recipient.recipient_id
+#         recipient = crud.get_recipient_by_id(recipient_Id) 
+#         note = event.note.note_id
+#         print('^'*40)
+#         print(note)
+#         content = event.note.content
+#         print('&'*40)
+#         print(content)
+#         event_gid = crud.get_event_gid(event_id)
+#         creds = connect_google_API()
+#     try:
+
+#         service = build('calendar', 'v3', credentials=creds)
+#         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+#         event = service.events().get(calendarId='primary', eventId= event_gid).execute()
+#         print('!'*40)
+#         print(event)
+#         event['description'] = content
+#         updated_event = service.events().update(calendarId='primary', eventId=event_gid, body=event).execute()
+#         print('the updated date')
+#         print(updated_event['description'])
+#     except HttpError as error:
+#         print('An error occurred: %s' % error)  
+#     return redirect(f"/recipients_profile/{recipient.recipient_id}")
 
 # Edit date format for Jinja templates
 @app.template_filter('datetimeformat')
