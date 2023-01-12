@@ -1,4 +1,16 @@
-.hidden{
+ *{
+ font-family: 'Laila', sans-serif;
+ }
+ .name-tag{
+    font-family: "Laila", sans-serif;
+    font-weight: 600;
+    position:static;
+    left: 10%;
+    font-size:5vw;
+    padding-left:4%;
+
+ }
+ .hidden{
     display: none !important;
 }
 ul{
@@ -28,6 +40,8 @@ width:50%;
    display: flex;
    justify-content: center;
    color: white;
+   align-items:center;
+   flex-direction:row; 
 }
 
 #site-name{
@@ -97,7 +111,7 @@ header{
 }
 #new-acct{
    position:relative !important;
-   left: -123% !important;
+   left: -108% !important;
 }
 #cd-labl{
     position:relative;
@@ -105,7 +119,7 @@ header{
 }
 #logIn{
     position:relative;
-    left: 95%;
+    left: 90%;
 }
 #login-frm{
     display:flex;
@@ -121,4 +135,54 @@ margin:2% !important;
 }
 .lgin{
     padding-top: 1rem !important;
+}
+#quote{
+    position:static;
+    left: 24%;
+}
+.blockquote{
+    max-width: 400px;
+    margin: 10px 30px;
+    padding:25px;
+    background: rgb(228, 207, 199) ;
+    border: 1px solid rgb(225, 181, 166) ;
+    color: rgb(116, 84, 92);
+    box-sizing: border-box;
+}
+.blockquote--bordered{
+   border-left-width:10px; 
+}
+.blockquote__text{
+    font-family: "Laila", sans-serif;
+    font-style:italic;
+    font-weight: 400;
+    font-size:1em;
+    line-height:1.5;
+    margin:0;
+}
+.blockquote__text:not(:last-child){
+margin-bottom: 1em;
+}
+.blockquote__text--credit{
+    font-weight:bold;
+    font-style:normal;
+    text-align:right;
+}
+.blockquote__text--credit::before{
+    content:"\2014\0020";
+}
+
+.blockquote--quoted::before{
+    content:"\201c";
+    font-size:70px;
+    color:rgb(116,84,92);
+    display:block;
+    margin-bottom: -70px;
+    margin-top:-20px;
+}
+.tag-line{
+    position:static;
+    left: -30%;
+    padding-left:4% ;
+    font-size:1.15em;
 }
