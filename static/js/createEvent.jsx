@@ -28,17 +28,24 @@ function CreateEvent(props){
     }
     return(
     <>
-        <h3>Add Events</h3>
-        <label htmlFor="event_name">Enter the name of the event</label>
-        <input type="text" id="event_name" name="event_name" value={eventText} onChange={(evt) =>{setEventText(evt.target.value)}}/>
-        <br/>
-        <br/>
+        <div className="card text-white bg-secondary mb-3" id='evt-form' >
+        <div className="card-body">
+        <h5 className="card-title">Add Event</h5>       
+         <form>
+        <div className="form-group ">
+        <label htmlFor="event_name">Enter name of the event</label>
+        <input type="text" id="event_name" className="form-control" name="event_name"  placeholder="event name" value={eventText} onChange={(evt) =>{setEventText(evt.target.value)}}/>
+        </div>
+        <div className="form-group ">
         <label htmlFor="event_date" id="event_date" name="event_date">Enter date to begin preparing for event</label>
-        <input type="date" id="event_date" name="event_date" value={eventDate} onChange={(evt) =>{setEventDate(evt.target.value)}} />
-        <br/>
-        <br/>
-        <input type="submit" value="Submit" onClick={handleSubmit}/>
-
+        <input type="date" id="event_date" className="form-control" name="event_date" placeholder="plan start date" value={eventDate} onChange={(evt) =>{setEventDate(evt.target.value)}} />
+        </div>
+        
+        <button type="submit" className="btn btn-primary"  onClick={handleSubmit}>Submit</button>
+        </form>
+        </div>
+        </div>
     </>
     );
 }
+
