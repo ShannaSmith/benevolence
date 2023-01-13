@@ -15,6 +15,7 @@ endblock title %} {% block body %}
       class="remove_recipient btn btn-outline-secondary"
       id="remove_recipient_{{recipient.recipient_id}}"
       value="{{recipient.recipient_id}}"
+      type="submit"
     >
       Delete
     </button>
@@ -23,7 +24,7 @@ endblock title %} {% block body %}
   {% endfor%}
 </ul>
 </div>
-<h3>Add framily member</h3>
+<h3 class="title">Add framily member</h3>
 {% if session.get('user_email')%}
 <form action="/recipients/new/{{user.user_id}}" method="POST">
   <div class="input-group mb-3 add-frmem"> 

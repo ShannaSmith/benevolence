@@ -45,7 +45,7 @@ if (noteContent != null){
     <>  
      <div id="event-info">
     <div className="card text-white bg-secondary mb-3" id="profile-card">
-    <div class="card-header">
+    <div className="card-header">
     Event
   </div>
     <div className="card-body">
@@ -53,7 +53,7 @@ if (noteContent != null){
     <p className="card-text">Begin prep : {newDate}</p>
     <button className="btn btn-outline-light" onClick={() => handleDeleteEvent(eventObj.event_id)}>remove event</button>
     
-    <div className="card-body">
+    <div>
     <div className="header">Plan:</div>
     <p className="card-text">{noteContent}</p>
     {noteForm}

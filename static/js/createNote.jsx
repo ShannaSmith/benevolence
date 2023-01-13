@@ -30,7 +30,7 @@ function CreateNote(props){
         removeForm && <div>
         
         {/* <label htmlFor="note"></label> */}
-        <textarea class="form-control" placeholder="Enter your plan" type="textarea" rows="3" name="note" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}}></textarea>
+        <textarea className="form-control" placeholder="Enter your plan" type="textarea" rows="3" name="note" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}}></textarea>
         <button className="btn btn-outline-light" type="submit" onClick={handleSubmit}>Submit</button>
         </div>}
     </>

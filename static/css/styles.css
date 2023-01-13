@@ -233,7 +233,7 @@ margin-bottom: 1em;
 #prompts{
 position: relative;
 left:63vw;
-top:-20vh;
+top:20vh;
 }
 .r-name{
     position: relative;
@@ -255,11 +255,12 @@ top:-20vh;
 }
 .add-frmem{
     max-width: 30em;
+    margin-left: 2vw;
 }
-#button-addon2{
+/* #button-addon2{
   font-size: 12px; 
   
-}
+} */
 .updat-pln{
     margin-bottom:3vh;
 }

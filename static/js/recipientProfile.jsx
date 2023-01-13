@@ -35,11 +35,11 @@ function RecipientDetails(props) {
             </div>    
             <div id="fav-thgs">
             <div className="card text-white bg-secondary mb-3" id="profile-card">
-            <div class="card-header">
+            <div className="card-header">
             Their Favorite Things  
             </div>
             <div className="card-body">
-            <p className="card-text ">{likesList}</p>
+            <div className="card-text ">{likesList}</div>
             </div >
             </div>
             </div>
