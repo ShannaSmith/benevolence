@@ -3,7 +3,7 @@
     font-family: "Laila", sans-serif;
     font-weight: 600;
     position:static;
-    left: 10%;
+    left: 10vw;
     font-size:5vw;
     padding-left:4%;
 
@@ -75,6 +75,7 @@ width:50%;
     background-color:rgb(133, 88, 111);
     color:white;
     font-family: 'Laila', sans-serif;
+    height:100vh;
 }
 .form-text{
     color:white !important;
@@ -117,7 +118,8 @@ header{
 }
 #cd-labl{
     position:relative;
-    left: -8%;
+    left: -10vw;
+    text-align: left;
 }
 #logIn{
     position:relative;
@@ -184,14 +186,80 @@ margin-bottom: 1em;
 }
 .tag-line{
     position:static;
-    left: -30%;
+    left: -30vw;
     padding-left:4% ;
     font-size:1.15em;
 }
 #evt-form{
-    width: 40% !important;
+    width: 27rem !important;
     border-width: 1em;
+    margin-right: 4vw;
 }
 .card.text-white.bg-secondary.mb-3{
-    max-width: 18rem;
+    max-width:18rem;
+}
+/* #profile-card{
+    width:20rem !important;
+    border-width: 1em;
+    max-width: 16rem !important;
+    margin-right:2vw !important;
+
+} */
+#note-card{
+    width:40% !important;
+    border-width: 1em;
+    max-width: 18rem; 
+}
+#event-info{
+    display: flex;
+    margin-left: 3vw;
+   max-width:18em;
+   max-height: 30em;
+
+}
+.profle-pg{
+    display:flex;
+    justify-content: space-between;
+}
+#fav-thgs{
+    
+    border-width: 1em;
+    max-width: 16em !important; 
+    margin-right: 4vw;
+}
+.promt-inpt{
+    max-width: 24rem;
+}
+#prompts{
+position: relative;
+left:63vw;
+top:-20vh;
+}
+.r-name{
+    position: relative;
+    left:3vw;
+    top:0.5vh;
+}
+.list-group-item.list-group-item-action{
+    max-width: 16em;
+}
+.list-group-item.list-group-item-action, a:hover {
+    /* color:blueviolet !important; */
+    
+}
+.title{
+    margin-left:3vw;
+}
+.remove_recipient{
+    margin-top: 0.5em ;
+}
+.add-frmem{
+    max-width: 30em;
+}
+#button-addon2{
+  font-size: 12px; 
+  
+}
+.updat-pln{
+    margin-bottom:3vh;
 }

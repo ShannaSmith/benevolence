@@ -26,15 +26,13 @@ function UpdateNote(props){
     }
     return(
     <>
-        <input type="submit" onClick={handleShowForm} value="update plan" />
+        <button type="button"className="btn btn-outline-light updat-pln" onClick={handleShowForm}>Update plan</button>
         { 
         showForm && <div>
-        <h1>update note</h1>
-        <label htmlFor="note">Update Your plan here</label>
-        <input type="textarea"  name="note" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}} />
+        <textarea type="textarea"  name="note"placeholder="update plan" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}} />
         <br/>
         <br/>
-        <input type="submit" onClick={handleSubmit} value="Submit"/>
+        <button className="btn btn-outline-light" type="button" onClick={handleSubmit}>Submit</button>
         </div> }
         
         </>

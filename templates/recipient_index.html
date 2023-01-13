@@ -1,21 +1,18 @@
 {% extends 'base.html' %} {% block title %}Benevolence recipient Index{%
 endblock title %} {% block body %}
-<div id="log-out">
-  <a href="/logout">Logout</a>
-</div>
-<h2>Framily members</h2>
+<div class="list-group">
+<h2 class="title">Framily members</h2>
 <ul>
   {% for recipient in recipients %}
   <li>
     <a
       id="link-{{recipient.recipient_id}}"
       href="/recipients_profile/{{ recipient.recipient_id }}"
-    >
+      class="list-group-item list-group-item-action" >
       {{recipient.r_name}}
     </a>
-    <br />
     <button
-      class="remove_recipient"
+      class="remove_recipient btn btn-outline-secondary"
       id="remove_recipient_{{recipient.recipient_id}}"
       value="{{recipient.recipient_id}}"
     >
@@ -25,14 +22,14 @@ endblock title %} {% block body %}
   <br />
   {% endfor%}
 </ul>
+</div>
 <h3>Add framily member</h3>
 {% if session.get('user_email')%}
 <form action="/recipients/new/{{user.user_id}}" method="POST">
-  <label for="new_r_name">Enter their first and last name.</label>
-  <input type="text" id="r_name" name="new_r_name" />
-  <br />
-  <br />
-  <input type="submit" value="Add member" />
+  <div class="input-group mb-3 add-frmem"> 
+  <input type="text" class="form-control" placeholder="Enter their first and last name"  id="r_name" name="new_r_name" />
+  <button type="button"class="btn btn-sm btn-outline-secondary"id="button-addon2">Add</button>
+</div>
 </form>
 
 {% endif %}

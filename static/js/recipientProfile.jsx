@@ -26,30 +26,35 @@ function RecipientDetails(props) {
     }
     return (
         <>
-            <div id="log-out">
-                <a href="/logout">Logout</a>
-                </div>
-                <h2>{recipient.r_name}</h2>
+                <h2 className="r-name">{recipient.r_name}</h2>
                 <div className="sched_events" >
-                <h3>Events</h3>
-                
-                {eventsList}
-                 </div>
+                <div className="profle-pg">
+
             <div>
-            <h3>Their Favorite Things</h3>
-                {likesList} 
+                {eventsList}
+            </div>    
+            <div id="fav-thgs">
+            <div className="card text-white bg-secondary mb-3" id="profile-card">
+            <div class="card-header">
+            Their Favorite Things  
+            </div>
+            <div className="card-body">
+            <p className="card-text ">{likesList}</p>
+            </div >
+            </div>
             </div>
             <div>
+                <CreateEvent recipient_id={recipient.recipient_id} handleNewEvent={handleNewEvent} />
+            </div>
+
+            </div>
+
+            </div>
+            <div id="prompts">
                 
                 {promptsList}
             </div>
            
-            <div>
-                <CreateEvent recipient_id={recipient.recipient_id} handleNewEvent={handleNewEvent} />
-            </div>
-            <div>
-                {/* <CreateLike recipient_id={recipient.recipient_id} handleNewLike={handleNewLike}/> */}
-            </div>
         </>
     );
 }

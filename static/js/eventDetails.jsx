@@ -42,12 +42,26 @@ if (noteContent != null){
     handleUpdateNote={handleUpdateNote} />
 }
    return(
-    <>
-    <h2>{eventObj.event_name}</h2>
-    <h2>Start preparing for this event on: {newDate}</h2>
-    <button onClick={() => handleDeleteEvent(eventObj.event_id)}>remove event</button>
-    <h2>{noteContent}</h2>
+    <>  
+     <div id="event-info">
+    <div className="card text-white bg-secondary mb-3" id="profile-card">
+    <div class="card-header">
+    Event
+  </div>
+    <div className="card-body">
+    <h5 className="card-title">{eventObj.event_name}</h5>
+    <p className="card-text">Begin prep : {newDate}</p>
+    <button className="btn btn-outline-light" onClick={() => handleDeleteEvent(eventObj.event_id)}>remove event</button>
+    
+    <div className="card-body">
+    <div className="header">Plan:</div>
+    <p className="card-text">{noteContent}</p>
     {noteForm}
+    </div>
+
+    </div>
+    </div>
+    </div>
     </>
     );
 }

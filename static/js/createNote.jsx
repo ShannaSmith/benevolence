@@ -28,12 +28,10 @@ function CreateNote(props){
     <>
         { 
         removeForm && <div>
-        <h4>Create your plan</h4>
-        <label htmlFor="note">Create your plan here</label>
-        <input type="textarea" name="note" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}} />
-        <br/>
-        <br/>
-        <input type="submit" onClick={handleSubmit} value="Submit"/>
+        
+        {/* <label htmlFor="note"></label> */}
+        <textarea class="form-control" placeholder="Enter your plan" type="textarea" rows="3" name="note" value={noteText} onChange={(evt) =>{setNoteText(evt.target.value)}}></textarea>
+        <button className="btn btn-outline-light" type="button" onClick={handleSubmit}>Submit</button>
         </div>}
     </>
     );
