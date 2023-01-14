@@ -36,7 +36,7 @@ console.log('print out of props.prompt>>>>>>>>>>', props.prompt)
         {/* <label htmlFor="prompt_reply" className="likes ">{props.prompt.prompt_name}</label> */}
         <input type="text" name="prompt_reply" className="form-control likes" placeholder={props.prompt.prompt_name} value={user_answer} onChange={(evt) =>{setUserAnswer(evt.target.value)}} />
         <input type="hidden" name="prompt_id" className="form-control" value={props.prompt.prompt_id} />    
-        <button  value="Add interest"className="btn btn-outline-secondary" type="submit" id="button-addon2" onClick={handleSubmit}>Submit</button>
+        <button  value="Add interest"className="btn btn-outline-light" type="submit" id="button-addon2" onClick={handleSubmit}>Submit</button>
        </div>
     </div>
     </>

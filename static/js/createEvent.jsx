@@ -29,16 +29,16 @@ function CreateEvent(props){
     return(
     <>
         
-        <h5>Add Event</h5>       
+              
          <form id='evt-form'>
-       
+         <h5>Add Event</h5> 
         <div className="row">
         <div className="col">
         {/* <label htmlFor="event_name">Enter name of the event</label> */}
         <input type="text" id="event_name" className="form-control" name="event_name"  placeholder="event name" value={eventText} onChange={(evt) =>{setEventText(evt.target.value)}}/>
         </div>
         
-       
+       <h5>Date to Start preparations</h5>
         <div className="col">
         {/* <label htmlFor="event_date" id="event_date" name="event_date">Enter date to begin preparing for event</label> */}
         <input type="date" id="event_date" className="form-control" name="event_date" placeholder="plan start date" value={eventDate} onChange={(evt) =>{setEventDate(evt.target.value)}} />
@@ -46,7 +46,7 @@ function CreateEvent(props){
         
         </div>
         <div>
-        <button type="submit" className="btn btn-outline-secondary"  onClick={handleSubmit}>Submit</button>
+        <button type="submit" className="btn btn-outline-light"  onClick={handleSubmit}>Submit</button>
         </div>
         </form>
        

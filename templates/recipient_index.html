@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block title %}Benevolence recipient Index{%
 endblock title %} {% block body %}
-<div class="list-group">
-<h2 class="title">Framily members</h2>
+<div id="index-pg">
+    <h2 class="title">Framily members</h2>
+<div class="list-group index">
+
 <ul>
   {% for recipient in recipients %}
   <li>
@@ -12,7 +14,7 @@ endblock title %} {% block body %}
       {{recipient.r_name}}
     </a>
     <button
-      class="remove_recipient btn btn-outline-secondary"
+      class="remove_recipient btn btn btn-outline-light"
       id="remove_recipient_{{recipient.recipient_id}}"
       value="{{recipient.recipient_id}}"
       type="submit"
@@ -23,18 +25,29 @@ endblock title %} {% block body %}
   <br />
   {% endfor%}
 </ul>
+      <blockquote class="blockquote blockquote--bordered blockquote--quoted" id="quote">
+        <p class="blockquote__text">
+        Remember, there's no such thing
+        as a small act of kindness.
+        Every act creates a ripple with
+        no logical end.
+        
+        </p>
+        <p class="blockquote__text blockquote__text--credit">Scott Adams</p>
+    </blockquote>
+
 </div>
 <h3 class="title">Add framily member</h3>
 {% if session.get('user_email')%}
 <form action="/recipients/new/{{user.user_id}}" method="POST">
   <div class="input-group mb-3 add-frmem"> 
   <input type="text" class="form-control" placeholder="Enter their first and last name"  id="r_name" name="new_r_name" />
-  <button type="submit"class="btn btn-sm btn-outline-secondary"id="button-addon2">Add</button>
+  <button type="submit"class="btn btn-sm btn btn-outline-light"id="button-addon2">Add</button>
 </div>
 </form>
 
 {% endif %}
-
+</div>
 {% endblock body %}{% block after_body %}
 <script src="../static/js/updateNotes.js"></script>
 <script src="../static/js/index.js"></script>

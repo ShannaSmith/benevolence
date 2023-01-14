@@ -21,7 +21,7 @@
     {% endblock %}
   </head>
 
-  <body>
+  <body {% block bgColor %}class="bg-pg-color"{% endblock %}>
     <header role="banner">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <a class="navbar-brand" href="#"></a>
@@ -49,7 +49,7 @@
             id="navbarNavAltMarkup"
           >
             {%if "user_id" in session %}
-            <a class="nav-item nav-link link-secondary"
+            <a class="nav-item nav-link link-secondary welcome"
               >Welcome, {{session.user_fname}}<span class="sr-only"></span
             ></a>
             {%endif%}

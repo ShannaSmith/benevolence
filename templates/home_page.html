@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block title %}Benevolence Home{% endblock title %}
+{% block bgColor %}id="homepage"{% endblock %}
 {% block body %}
-<main id="homepage">
+<main>
   <div class="LI">
     <form action="/login" id="login-frm" class="hidden" method="POST">
       <div class="form-group lgin">        
@@ -50,16 +51,6 @@
         class="img-fluid"
         alt="logo"
       />
-      <!-- <blockquote class="blockquote blockquote--bordered blockquote--quoted" id="quote">
-        <p class="blockquote__text">
-        Remember, there's no such thing
-        as a small act of kindness.
-        Every act creates a ripple with
-        no logical end.
-        
-        </p>
-        <p class="blockquote__text blockquote__text--credit">Scott Adams</p>
-    </blockquote> -->
 
       
     </div>
