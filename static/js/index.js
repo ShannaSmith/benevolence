@@ -37,4 +37,4 @@ function showLogIn (evt) {
         logBtn.classList.add("hidden");     
 };
 
-$('.alert').alert()
+

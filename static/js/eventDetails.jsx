@@ -56,7 +56,6 @@ function EventDetails(props) {
   }
   return (
     <>
-      {/* <div  className="event-info"> */}
         <div className="card profile-card m-3">
           <div className="card-header">Event</div>
           <div className="card-body">
@@ -79,7 +78,6 @@ function EventDetails(props) {
     </div>
           </div>
         </div>
-      {/* </div> */}
     </>
   );
 }
