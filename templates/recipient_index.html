@@ -14,12 +14,11 @@ endblock title %} {% block body %}
       {{recipient.r_name}}
     </a>
     <button
-      class="remove_recipient btn btn btn-outline-light"
+      class="remove_recipient btn btn btn-outline-light bi bi-trash"
       id="remove_recipient_{{recipient.recipient_id}}"
       value="{{recipient.recipient_id}}"
       type="submit"
     >
-      Delete
     </button>
   </li>
   <br />

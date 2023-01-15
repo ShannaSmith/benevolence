@@ -213,6 +213,10 @@ display:inline-flex;
 color:white;
 box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
 max-width: 18rem;
+border-width: 0.5em !important;
+border-color:rgb(116,84,92); 
+background-color: rgb(172, 125, 136)!important;
+border-radius: 20px ;
 }
 
 #note-card{
@@ -271,10 +275,6 @@ top:20vh;
     max-width: 30em;
     margin-left: 2vw;
 }
-/* #button-addon2{
-  font-size: 12px; 
-  
-} */
 .updat-pln{
     margin-bottom:3vh;
 }
@@ -306,30 +306,35 @@ h2, h5{
     position: relative;
     left:-48vw;
     color:white;
+    background-color: rgb(172, 125, 136);
 }
 .card {
-     background-color:rgb(222, 182, 171);
+     background-color: rgb(172, 125, 136);
+    
  }
 .card-header, .card-footer {
-     opacity: 0.5 !important;
-
+     opacity: 0.7 !important;
+     color: white !important;
 }
 .card-footer{
-    color: white !important;
+    background-color: rgb(222, 182, 171) !important;
+    border-radius: 10px !important;
+    text-align: center !important;
 }
 .text-muted{
     color:rgb(116,84,92);
     text-align: center !important;
 }
 textarea{
-    background-color: rgb(248, 236, 209) !important;
+    background-color: white !important;
     
 }
 ::placeholder{
     color:rgb(116,84,92) !important;
 opacity: 1;
 }
-/* .my-btn{
-    color:rgb(248, 236, 209) !important;
-    border-color: rgb(248, 236, 209) !important;
-} */
+.alert{
+    max-width: 25em;
+    position:absolute;
+    left:50%;
+}

@@ -74,6 +74,7 @@ def logout_user():
     session.pop("user_fname", None)
     session.pop('user_email', None)
     session.pop("user_id", None)
+    flash("You are now logged out.")
     return redirect("/")
 
 #Google API helper function
@@ -390,7 +391,7 @@ def recipient_delete(recipient_id):
     
     db.session.delete(recipient)
     db.session.commit()
-    return {"status":"Success"}
+    return {"status":f" You have removed {recipient.r_name}"}
 
 # Delete Event
 @app.route("/remove_event/<event_id>", methods=["POST"])
