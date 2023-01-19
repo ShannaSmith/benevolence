@@ -117,11 +117,19 @@
       <body>
       {% for message in get_flashed_messages() %}
       <div class="alert alert-dark alert-dismissible fade show" role="alert">
-          <strong>{{message}}</strong> 
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+         
+        <strong>{{message}}</strong> 
+          <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close">
+            <!-- <span aria-hidden="true">&times;</span> -->
           </button>
         </div>
+        <script type="text/javascript">
+            setTimeout(function () {
+      
+                // Closing the alert
+                $('#alert').alert('close');
+            }, 5000);
+        </script>
         {% endfor %}
     </body>
     {% block body %} 
@@ -132,6 +140,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="../static/js/index.js"></script>
+    
     {% block after_body %}{% endblock %}
   </body>
 

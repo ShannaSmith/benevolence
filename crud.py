@@ -1,11 +1,14 @@
 """CRUD operation functions"""
 import psycopg2
+import pathlib
+from passlib.hash import pbkdf2_sha256
 from model import db, User, Recipient, Note, Like, Event, Prompt, connect_to_db
 
 #Functions  start here:
 def create_user(fname, lname, email, password):
     """Create and return a new user."""
-    user= User(fname=fname, lname=lname, email=email, password=password)
+    hashed_password = pbkdf2_sha256.hash(password)
+    user= User(fname=fname, lname=lname, email=email, password=hashed_password)
     return user
 
 def get_recipients(user_id):
@@ -71,6 +74,15 @@ def get_all_likes(recipient_id):
     return Like.query.filter(Like.recipient_id == recipient_id).all()
 
 
+def check_hash_account(email, password):
+    """Check if hashed pw in db matches entered password"""
+
+    user = User.query.filter(User.email == email).first()
+
+    if pbkdf2_sha256.verify(password, user.password):
+        return user
+    else:
+        return False
  
 
 

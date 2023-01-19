@@ -10,7 +10,7 @@ class User(db.Model):
     fname = db.Column(db.String(25), nullable=False)
     lname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), nullable=False, unique=True)
-    password = db.Column(db.String(10))
+    password = db.Column(db.String(90))
    
     recipients = db.relationship('Recipient', back_populates='user')
     events =db.relationship('Event',back_populates='user')

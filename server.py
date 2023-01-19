@@ -2,6 +2,7 @@
 from __future__ import print_function
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 
+from passlib.hash import pbkdf2_sha256
 from model import connect_to_db, db, User, Recipient, Note, Like, Prompt, Event, Note
 import crud
 import os
@@ -21,7 +22,7 @@ app.secret_key = os.environ['SECRET_KEY']
 app.jinja_env.undefined = StrictUndefined
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-
+salt = os.urandom
 #  routes and view functions!
 @app.route('/')
 def homepage():
@@ -56,8 +57,8 @@ def process_login():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user = crud.get_user_by_email(email)
-    if not user or user.password != password:
+    user = crud.check_hash_account(email, password)
+    if not user:
         flash("The email or password you entered was incorrect.")
         return redirect("/")
     else:

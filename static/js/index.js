@@ -1,3 +1,5 @@
+$('.alert').alert('close')
+
 let acctBtn = document.getElementById('new-acct');
 
 function showCreateAcct (evt) {
