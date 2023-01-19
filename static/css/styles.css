@@ -113,10 +113,7 @@ header {
   margin-bottom: 6% !important;
   border-radius: 10px !important;
 }
-#new-acct {
-  position: relative !important;
-  left: -108% !important;
-}
+
 #cd-labl {
   position: relative;
   left: -10vw;
@@ -339,8 +336,8 @@ textarea {
 }
 
 #new-acct {
-  position: relative !important;
-  left: -108% !important;
+  position: relative;
+  left: -108%;
   top: -17vh;
 }
 #cd-labl {
@@ -348,4 +345,60 @@ textarea {
   left: -5.5vw;
   top: -17vh;
   text-align: left;
+}
+.display-4{
+    max-width: 100%;
+}
+@media(max-width:767px){
+    #logIn {
+        position: relative;
+        float: right;
+        left:0;
+        margin:10px;
+      }
+      .lib {
+        margin-top: 12px;
+    }
+    
+    h1.name-tag {
+        display: block;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+    
+    p.tag-line {
+        position: relative;
+        display: block;
+        width: 100%;
+        text-align: center;
+        left: auto;
+        padding: 13px;
+    }
+    
+    div#cr-acct-form {
+        display: block;
+        width: 100%;
+        margin-top: 16px;
+    }
+    #new-acct{
+        left: auto;
+        top: 0px;
+        text-align: center;
+    }
+    h4#cd-labl {
+        left: auto;
+        top: 0px;
+        text-align: center;
+    }
+    
+    .cab {
+        display: block;
+        text-align: center;
+    }
+    .bg{
+        width: 100%;
+    }
+    div#navbarNavAltMarkup {
+        padding-right: 15px;
+    }
 }
