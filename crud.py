@@ -78,6 +78,7 @@ def check_hash_account(email, password):
     """Check if hashed pw in db matches entered password"""
 
     user = User.query.filter(User.email == email).first()
+    print('email>>>>>>>',email)
 
     if pbkdf2_sha256.verify(password, user.password):
         return user
