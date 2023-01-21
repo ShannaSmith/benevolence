@@ -95,7 +95,7 @@ def connect_google_API():
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
             print("Creating Flow??????????????????????")
-            creds = flow.run_local_server(port=5002)
+            creds = flow.run_local_server(port=0)
             print("running flow server????????????")
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
