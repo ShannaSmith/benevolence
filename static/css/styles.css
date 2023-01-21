@@ -249,7 +249,7 @@ header {
 .r-name {
   position: relative;
   left: 3vw;
-  top: 0.5vh;
+  top: 3vh;
 }
 .list-group-item.list-group-item-action {
   max-width: 16em;
@@ -257,7 +257,13 @@ header {
 .title {
   margin-left: 7vw;
   margin-top: 1.5vh;
+  margin-bottom: 4vh;
   color: white;
+}
+.title-2{
+    margin-left: 7vw;
+  margin-top: 1.5vh;
+  color: white; 
 }
 .remove_recipient {
   margin-top: 2vh;
@@ -296,8 +302,8 @@ h5 {
   color: white;
 }
 #like-card {
-  position: relative;
-  left: -48vw;
+  position: static;
+  left: 3vw;
   color: white;
   background-color: rgb(172, 125, 136);
 }
