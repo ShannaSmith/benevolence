@@ -1,4 +1,4 @@
-# benevolence
+# Benevolence
 <br>
 
 <p>This web app allows you to add special occasions to your calendar, set reminders, and create a plan for your beneolent act. Allowing
