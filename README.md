@@ -11,13 +11,13 @@ functionialty to authenticated users. The navigation responds to the login statu
 
 ## Screenshots:
 
-![] (https://github.com/ShannaSmith/benevolence/blob/main/static/images/benevolence%20landing%20page.png)
+![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/benevolence%20landing%20page.png)
 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif1%20file.gif)
 
-![] (https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif2%20file.gif)
+![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif2%20file.gif)
 
-![] (https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif3%20file.gif)
+![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif3%20file.gif)
 
 <br>
 
