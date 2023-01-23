@@ -27,4 +27,5 @@ functionialty to authenticated users. The navigation responds to the login statu
 
 # 💾 Technologies Used
  <h3 align="center">React.js| Postgres SQL | SQL Alchemy | Python | CSS | AWS Lightsail | HTML | JavaSCript | Flask |Jinja | PassLib | Moment | Ajax | Google Calendar API | Bootstrap | Figma |</h3>
-   
+<b>
+
