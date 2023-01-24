@@ -1,20 +1,20 @@
 """Server for benevolence app."""
 from __future__ import print_function
-from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
+from flask import (Flask, render_template, request, flash, session, redirect, jsonify, url_for)
 
 from passlib.hash import pbkdf2_sha256
 from model import connect_to_db, db, User, Recipient, Note, Like, Prompt, Event, Note
 import crud
 import os
 from jinja2 import StrictUndefined
-
+import requests   #<<<<<<TODO may need to delete
 
 import datetime
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
-from google_auth_oauthlib.flow import Flow
+import google_auth_oauthlib.flow 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -85,24 +85,96 @@ def connect_google_API():
         # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+    print('>>>>>>>>>>>>>>>>>>>>>Entering the helper funct')
     if os.path.exists('token.json'):
+        print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% token exist')
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
+        print('$'*40, 'no creds')
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+            # flow = InstalledAppFlow.from_client_secrets_file(
+                # 'credentials.json', SCOPES)
+            flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+                'credentials.json', scopes=SCOPES)
             print("Creating Flow??????????????????????")
-            creds = flow.run_local_server(port=0)
+            flow.redirect_uri = url_for('oauth2callback', _external=True)
+            authorization_url, state = flow.authorization_url(
+            # Enable offline access so that you can refresh an access token without
+            # re-prompting the user for permission. Recommended for web server apps.
+            access_type='offline',
+            # Enable incremental authorization. Recommended as a best practice.
+            include_granted_scopes='true')
+            session['state'] = state
+            # creds = flow.run_local_server(port=0)
             print("running flow server????????????")
+            print('!'*40, 'creds is', creds)
+            print(dir(creds))
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
         print("wrote token.json file??????????????")
     return(creds)
+
+@app.route('/authorize')
+def authorize():
+    # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow steps.
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        "credentials.json", scopes=SCOPES)
+
+    # The URI created here must exactly match one of the authorized redirect URIs
+    # for the OAuth 2.0 client, which you configured in the API Console. If this
+    # value doesn't match an authorized URI, you will get a 'redirect_uri_mismatch'
+    # error.
+    flow.redirect_uri = url_for('oauth2callback', _external=True)
+
+    authorization_url, state = flow.authorization_url(
+        # Enable offline access so that you can refresh an access token without
+        # re-prompting the user for permission. Recommended for web server apps.
+        access_type='offline',
+        # Enable incremental authorization. Recommended as a best practice.
+        include_granted_scopes='true')
+
+    # Store the state so the callback can verify the auth server response.
+    session['state'] = state
+
+    return redirect(authorization_url)
+
+
+# Oauth callback
+@app.route('/oauth2callback')
+def oauth2callback():
+    # Specify the state when creating the flow in the callback so that it can
+    # verified in the authorization server response.
+    state = session['state']
+
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        'credentials.json', scopes=SCOPES, state=state)
+    flow.redirect_uri = url_for('oauth2callback', _external=True)
+
+    # Use the authorization server's response to fetch the OAuth 2.0 tokens.
+    authorization_response = request.url
+    flow.fetch_token(authorization_response=authorization_response)
+
+    # Store credentials in the session.
+    # ACTION ITEM: In a production app, you likely want to save these
+    #              credentials in a persistent database instead.
+    credentials = flow.credentials
+    session['credentials'] = credentials_to_dict(credentials)
+
+    return redirect(url_for('test_api_request'))
+
+def credentials_to_dict(credentials):
+    return {'token': credentials.token,
+            'refresh_token': credentials.refresh_token,
+            'token_uri': credentials.token_uri,
+            'client_id': credentials.client_id,
+            'client_secret': credentials.client_secret,
+            'scopes': credentials.scopes}
+
 
 #toDO
 # # create route to recipient profile page
