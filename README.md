@@ -10,8 +10,9 @@ you to exhibit the quality of being well-meaning.
 functionialty to authenticated users. The navigation responds to the login status of the user.
 
 ## Screenshots:
-
+<p>Users can create an account and logiin
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/benevolence%20landing%20page.png)
+<p>
 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif1%20file.gif)
 
@@ -28,4 +29,6 @@ functionialty to authenticated users. The navigation responds to the login statu
 # 💾 Technologies Used
  <h3 align="center">React.js| Postgres SQL | SQL Alchemy | Python | CSS | AWS Lightsail | HTML | JavaSCript | Flask |Jinja | PassLib | Moment | Ajax | Google Calendar API | Bootstrap | Figma |</h3>
 <b>
+Benevolence is a web app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the object relational mapping (ORM). The front end templating uses Jinja. I used React.js to create the profile page due to the number of features on the profile page.React was chosen to improve user experience. I used CSS and Bootstrap to style the web app. Javascript is used to provide dynamic interaction and AJAX to interact with the backend. Google API is used to create interaction between the web app and the user's Google Calendar. 
+
 
