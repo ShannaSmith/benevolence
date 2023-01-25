@@ -33,7 +33,7 @@ functionialty to authenticated users. The navigation responds to the login statu
 <br>
    
  
- ## :construction: Still under construction OAuth 2.0 for Web server :construction:
+ ## :construction: Still under construction: OAuth 2.0 for Web server :construction:
 
 ## Benevolence 🖱️ [Visit Web Application](https:/mybenevolence.com/) 
 <br>
