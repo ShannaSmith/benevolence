@@ -32,7 +32,7 @@ functionialty to authenticated users. The navigation responds to the login statu
 <br>
 
 
-## Benevolence  🖱️ [Visit Web Application](https:/mybenevolence.com/) 
+## Benevolence  🖱️ [Visit Web Application](https:/mybenevolence.com/) :construction: Pardon our progress: OAuth 2.0 for Web Server Still under construction
 <br>
 
 # 💾 Technologies Used
@@ -41,7 +41,7 @@ functionialty to authenticated users. The navigation responds to the login statu
 Benevolence is a web app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the object relational mapping (ORM). The front end templating uses Jinja. I used React.js to create the profile page due to the number of features on the profile page.React was chosen to improve user experience. I used CSS and Bootstrap to style the web app. Javascript is used to provide dynamic interaction and AJAX to interact with the backend. Google API is used to create interaction between the web app and the user's Google Calendar. 
  <br>
  
- ## About Me [LinkedIn](https://www.linkedin.com/in/shanna-smith-full-stack-dev/) 
+ ## About Me.  [LinkedIn](https://www.linkedin.com/in/shanna-smith-full-stack-dev/) 
  
  <br>
 
