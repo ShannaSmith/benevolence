@@ -39,7 +39,7 @@ functionialty to authenticated users. The navigation responds to the login statu
 <br>
 
 # 💾 Technologies Used
- <h3 align="center">React.js| Postgres SQL | SQL Alchemy | Python | CSS | AWS Lightsail | HTML | JavaSCript | Flask |Jinja | PassLib | Moment | Ajax | Google Calendar API | Bootstrap | Figma |</h3>
+ <h3 align="center">React.js| Postgres SQL | SQL Alchemy | Python | CSS | AWS Lightsail | HTML | JavaScript | Flask |Jinja | PassLib | Moment | Ajax | Google Calendar API | Bootstrap | Figma |</h3>
 <b>
 Benevolence is a web app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the object relational mapping (ORM). The front end templating uses Jinja. I used React.js to create the profile page due to the number of features on the profile page.React was chosen to improve user experience. I used CSS and Bootstrap to style the web app. Javascript is used to provide dynamic interaction and AJAX to interact with the backend. Google API is used to create interaction between the web app and the user's Google Calendar. 
  <br>
