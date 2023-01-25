@@ -32,7 +32,7 @@ functionialty to authenticated users. The navigation responds to the login statu
 <br>
 <br>
    
-  ## :construction: Pardon our progress:##
+  ## :construction: Pardon our progress :construction:
 
  ## :construction: Still under construction OAuth 2.0 for Web server :construction:
 
