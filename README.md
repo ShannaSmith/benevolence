@@ -10,11 +10,15 @@ you to exhibit the quality of being well-meaning.
 functionialty to authenticated users. The navigation responds to the login status of the user.
 
 ## Screenshots:
-<p>Users can create an account and logiin
+<p>Users can create an account and login
+ 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/benevolence%20landing%20page.png)
-<p>
+ 
+<p>You can view your list of Framily members, add new members and delete members. Each name is a link that takes you to that members profile page
 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif1%20file.gif)
+ 
+ <p>
 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif2%20file.gif)
 
