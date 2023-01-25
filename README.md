@@ -1,6 +1,7 @@
 # Benevolence
 <br>
-
+Benevolence is a web app built on a Flask server with a PostgreSQL database, with SQLAlchemy used as the object relational mapper (ORM) tool. The front end templating uses Jinja. I used React.js to create the profile page due to it's high number of features. React was chosen to improve user interaction and experience. I used CSS and Bootstrap to style the web app. Javascript is used to provide dynamic interaction and AJAX to interact with the backend. Google API is used to create interaction between the web app and the user's Google Calendar. 
+ <br>
 <p>This web app allows you to add special occasions to your calendar, set reminders, and create a plan for your benevolent act. Allowing
 you to exhibit the quality of being well-meaning.
 
@@ -42,8 +43,7 @@ functionialty to authenticated users. The navigation responds to the login statu
 # 💾 Technologies Used
  <h3 align="center">React.js | Postgres SQL | SQL Alchemy | Python | CSS | AWS Lightsail | HTML | JavaScript | Flask |Jinja | PassLib | moment | Ajax | Google Calendar API | Bootstrap | Figma | Lightsail | Certbot | nginx | </h3>
 <b>
-Benevolence is a web app built on a Flask server with a PostgreSQL database, with SQLAlchemy used as the object relational mapper (ORM) tool. The front end templating uses Jinja. I used React.js to create the profile page due to it's high number of features. React was chosen to improve user interaction and experience. I used CSS and Bootstrap to style the web app. Javascript is used to provide dynamic interaction and AJAX to interact with the backend. Google API is used to create interaction between the web app and the user's Google Calendar. 
- <br>
+
  
  # About Me  
  [LinkedIn](https://www.linkedin.com/in/shanna-smith-full-stack-dev/) 
