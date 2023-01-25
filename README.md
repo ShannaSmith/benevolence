@@ -10,17 +10,22 @@ you to exhibit the quality of being well-meaning.
 functionialty to authenticated users. The navigation responds to the login status of the user.
 
 ## Screenshots:
-<p>Users can create an account and login
+<p>Users can create an account and login. To improve user interaction JavaScript and CSS is used to make forms appear and disappear onclick.
  
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/benevolence%20landing%20page.png)
  
 <p>You can view your list of Framily members, add new members and delete members. Each name is a link that takes you to that members profile page
+ The site is personalize by taking the user's name from the session and addinig it to the welcome message in the Flash message and navbar.
+ The navbar has a hover effect and active link status.
 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif1%20file.gif)
  
- <p>
+ <p>You can add important events or occassions to for each profile. These events are added to your Google Calendar allowing you to set reminders 
+  
 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif2%20file.gif)
+  
+  <p> You can add a plan for your benevolent act to each event. You can continuously modiify this plan. It is automatically added to the description section of your Google Calendar.
 
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif3%20file.gif)
 
