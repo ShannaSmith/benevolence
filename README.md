@@ -30,9 +30,11 @@ functionialty to authenticated users. The navigation responds to the login statu
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/gif3%20file.gif)
 
 <br>
+<br>
 
+  :construction: Pardon our progress: OAuth 2.0 for Web server still under construction :construction:
 
-## Benevolence 🖱️ [Visit Web Application](https:/mybenevolence.com/) :construction: Pardon our progress: OAuth 2.0 for Web server still under construction
+## Benevolence 🖱️ [Visit Web Application](https:/mybenevolence.com/) 
 <br>
 
 # 💾 Technologies Used
