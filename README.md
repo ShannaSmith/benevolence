@@ -6,10 +6,11 @@ you to exhibit the quality of being well-meaning.
 
 ## 🎯 Objective 
 
-<p>This project is a full-stack  web application. Authorization is impolemented by restricting create, read, update, delete (CRUD)
+<p>This project is a full-stack  web application. Authorization is implemented by restricting create, update, delete (CUD)
 functionialty to authenticated users. The navigation responds to the login status of the user.
 
-## Screenshots:
+## 	:movie_camera: Screenshots:
+ 
 <p>Users can create an account and login. Passwords are hashed. To improve user interaction JavaScript and CSS is used to make forms appear and disappear onclick.
  
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/benevolence%20landing%20page.png)
