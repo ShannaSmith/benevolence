@@ -10,7 +10,7 @@ you to exhibit the quality of being well-meaning.
 functionialty to authenticated users. The navigation responds to the login status of the user.
 
 ## Screenshots:
-<p>Users can create an account and login. To improve user interaction JavaScript and CSS is used to make forms appear and disappear onclick.
+<p>Users can create an account and login. Passwords are hashed. To improve user interaction JavaScript and CSS is used to make forms appear and disappear onclick.
  
 ![](https://github.com/ShannaSmith/benevolence/blob/main/static/images/benevolence%20landing%20page.png)
  
@@ -32,7 +32,7 @@ functionialty to authenticated users. The navigation responds to the login statu
 <br>
 
 
-## Benevolence  🖱️ [Visit Web Application](https:/mybenevolence.com/) :construction: Pardon our progress: OAuth 2.0 for Web Server Still under construction
+## Benevolence 🖱️ [Visit Web Application](https:/mybenevolence.com/) :construction: Pardon our progress: OAuth 2.0 for Web server still under construction
 <br>
 
 # 💾 Technologies Used
