@@ -109,7 +109,7 @@ def connect_google_API():
             # Enable incremental authorization. Recommended as a best practice.
             include_granted_scopes='true')
             session['state'] = state
-            # creds = flow.run_local_server(port=0)
+            # creds = flow.run_console()
             print("running flow server????????????")
             print('!'*40, 'creds is', creds)
             print(dir(creds))
@@ -130,6 +130,7 @@ def authorize():
     # value doesn't match an authorized URI, you will get a 'redirect_uri_mismatch'
     # error.
     flow.redirect_uri = url_for('oauth2callback', _external=True)
+    print("flow redirect url>>>>>>>>>>",flow.redirect_uri )
 
     authorization_url, state = flow.authorization_url(
         # Enable offline access so that you can refresh an access token without
@@ -140,7 +141,7 @@ def authorize():
 
     # Store the state so the callback can verify the auth server response.
     session['state'] = state
-
+    print('authorization url>>>>>>>>>>>>>>>>>>>>>>>>', authorization_url)
     return redirect(authorization_url)
 
 
@@ -154,9 +155,11 @@ def oauth2callback():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         'credentials.json', scopes=SCOPES, state=state)
     flow.redirect_uri = url_for('oauth2callback', _external=True)
+    print("flow redirect url 2>>>>>>>>>>",flow.redirect_uri )
 
     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
     authorization_response = request.url
+    print('Autho response>>>>>>>>>>>>>>>>>>>>',authorization_response)
     flow.fetch_token(authorization_response=authorization_response)
 
     # Store credentials in the session.
@@ -165,7 +168,7 @@ def oauth2callback():
     credentials = flow.credentials
     session['credentials'] = credentials_to_dict(credentials)
 
-    return redirect(url_for('test_api_request'))
+    return redirect(session['requested_url'])
 
 def credentials_to_dict(credentials):
     return {'token': credentials.token,
@@ -221,6 +224,9 @@ def create_event(recipient_id):
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
         return jsonify("you must log in to add an event")
+    elif "credentials" not in session:
+        session['requested_url'] = f"/recipients/{recipient_id}/events"
+        return redirect("/authorize")
     else:
         event_name = request.json.get("event_name")
         event_date = request.json.get("event_date")
@@ -338,6 +344,9 @@ def create_new_note(event_id):
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
         return jsonify('You must be logged in to create a note')
+    elif "credentials" not in session:
+        session['requested_url'] = f"/note/new/{event_id}"
+        return redirect("/authorize")
         
     
     user = crud.get_user_by_email(logged_in_email)
@@ -419,6 +428,10 @@ def datetimeformat(value, format='%B %d, %Y'):
 @app.route("/update_note", methods=["POST"])
 def update_note():
     """change note content"""
+    if "credentials" not in session:
+        session['requested_url'] = f"/update_note"
+        return redirect("/authorize")
+
     note_id = int(request.json["note_id"])
 
     note = crud.get_note_by_id(note_id)
