@@ -42,7 +42,7 @@ Benevolence is a web app built on a Flask server with a PostgreSQL database, wit
 
  <br>
  
- ## About Me 
- [LinkedIn](https://www.linkedin.com/in/shanna-smith-full-stack-dev/) 
+ ## About Me [LinkedIn](https://www.linkedin.com/in/shanna-smith-full-stack-dev/) 
+ 
  <br>
 
