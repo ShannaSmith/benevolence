@@ -1,6 +1,6 @@
 """Server for benevolence app."""
 from __future__ import print_function
-from flask import (Flask, render_template, request, flash, session, redirect, jsonify, url_for)
+from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 
 from passlib.hash import pbkdf2_sha256
 from model import connect_to_db, db, User, Recipient, Note, Like, Prompt, Event, Note
@@ -101,7 +101,7 @@ def connect_google_API():
             flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
                 'credentials.json', scopes=SCOPES)
             print("Creating Flow??????????????????????")
-            flow.redirect_uri = url_for('oauth2callback', _external=True)
+            flow.redirect_uri = 'https://mybenevolence.com/oauth2callback' 
             authorization_url, state = flow.authorization_url(
             # Enable offline access so that you can refresh an access token without
             # re-prompting the user for permission. Recommended for web server apps.
@@ -129,7 +129,7 @@ def authorize():
     # for the OAuth 2.0 client, which you configured in the API Console. If this
     # value doesn't match an authorized URI, you will get a 'redirect_uri_mismatch'
     # error.
-    flow.redirect_uri = url_for('oauth2callback', _external=True)
+    flow.redirect_uri = 'https://mybenevolence.com/oauth2callback'
     print("flow redirect url>>>>>>>>>>",flow.redirect_uri )
 
     authorization_url, state = flow.authorization_url(
@@ -154,7 +154,7 @@ def oauth2callback():
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         'credentials.json', scopes=SCOPES, state=state)
-    flow.redirect_uri = url_for('oauth2callback', _external=True)
+    flow.redirect_uri = 'https://mybenevolence.com/oauth2callback'
     print("flow redirect url 2>>>>>>>>>>",flow.redirect_uri )
 
     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
